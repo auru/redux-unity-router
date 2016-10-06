@@ -1,5 +1,5 @@
 import queryString from 'query-string';
-import createRouteParser from './route-parser';
+import createRouteParser from './route';
 
 let parseRoutes = _ => _;
 
@@ -18,7 +18,7 @@ const parseLocation = location => {
     };
 };
 
-const createLocationParser = ({ routes }) => {
+const createLocationParser = routes => {
     parseRoutes = createRouteParser(routes);
     return parseLocation;
 };

@@ -13,12 +13,9 @@ export default ({ history, slice, locationParser }) => next => (reducer, initial
 
     const store = next(reducer, newInitialState, enhancer);
 
-    history.listen(location => {
-
-        console.info('enchancer!', location);
-
+    history.listen(location => (
         !location.silent && store.dispatch(actions.locationChange(location))
-    });
+    ));
 
     return store;
 }

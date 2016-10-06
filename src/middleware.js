@@ -7,11 +7,9 @@ export default ({ history }) => ({ dispatch, getState }) => next => action => {
     if (type.indexOf(ACTION_PREFIX) === 0 && type !== ACTION_TYPES.LOCATION_CHANGED) {
 
         if (HISTORY_METHODS[type]) {
-
-            console.info(`Middleware: executing action ${HISTORY_METHODS[type]} with payload`, payload);
-
             history[HISTORY_METHODS[type]](payload);
         }
+
         return;
     }
 

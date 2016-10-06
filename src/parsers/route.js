@@ -2,20 +2,15 @@ import pathToRegexp from 'path-to-regexp';
 
 let matchers = [];
 
-const createMatchers = routes => {
-
-    matchers = routes.map( route => {
-        const regexp = pathToRegexp(route.pattern);
-        const name = route.name || route.pattern;
-        return {
-            ...route,
-            name,
-            regexp
-        }
-    });
-
-    return matchers;
-};
+const createMatchers = routes => routes.map(route => {
+    const regexp = pathToRegexp(route.pattern);
+    const name = route.name || route.pattern;
+    return {
+        ...route,
+        name,
+        regexp
+    }
+});
 
 const createParamsFromKeys = (match, keys) => keys.reduce((result, key, index) => {
     result[key.name] = match[index + 1];
@@ -23,7 +18,6 @@ const createParamsFromKeys = (match, keys) => keys.reduce((result, key, index) =
 }, {});
 
 const matchPathToRoute = path => {
-
     for (let matcher of matchers) {
         const { regexp, name, pattern } = matcher;
 
@@ -38,11 +32,10 @@ const matchPathToRoute = path => {
             }
         }
     }
-
     return {}
 };
 
-const createRouteParser = (routes) => {
+const createRouteParser = routes => {
     matchers = createMatchers(routes);
     return matchPathToRoute;
 };

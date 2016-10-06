@@ -3,15 +3,14 @@ import reducer from './reducer';
 import middleware from './middleware';
 import { ACTION_TYPES } from './constants';
 import * as actions from './action-creators';
-import parser from './location-parser';
+import parser from './parsers/location';
 
 export const createRouter = ({
     history,
     routes,
     slice
 }) => {
-
-    const locationParser = parser({ routes });
+    const locationParser = parser(routes);
 
     return {
         actions,
