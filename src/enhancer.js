@@ -1,4 +1,5 @@
 import * as actions from './action-creators';
+import parseLocation from './location-parser';
 
 export default ({ history, routes, slice }) => next => (reducer, initialState, enhancer) => {
 
@@ -9,7 +10,7 @@ export default ({ history, routes, slice }) => next => (reducer, initialState, e
     }
     const newInitialState = initialState || enhancer;
 
-    newInitialState[slice] = {...history.location, state: history.location.state || {}};
+    newInitialState[slice] = parseLocation(history.location);
 
     const store = next(reducer, newInitialState, enhancer);
 

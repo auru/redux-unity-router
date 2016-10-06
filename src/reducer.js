@@ -1,4 +1,5 @@
 import { ACTION_TYPES } from './constants';
+import parseLocation from './location-parser';
 
 export default ({ routes }) => (state = {}, { type, payload }) => {
 
@@ -6,9 +7,7 @@ export default ({ routes }) => (state = {}, { type, payload }) => {
 
         console.log('reducer: action', { type, payload });
 
-        const historyState = payload.state || {};
-
-        return { ...payload, state: historyState };
+        return parseLocation(payload);
     }
 
     return state;

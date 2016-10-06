@@ -15,5 +15,9 @@
     "router"
   ],
   "author": "Vitaliy Blinovskov (blinovskov@yandex-team.ru)",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "path-to-regexp": "^1.6.0",
+    "query-string": "^4.2.3"
+  }
 }
