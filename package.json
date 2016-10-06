@@ -1,0 +1,19 @@
+{
+  "name": "redux-tiny-router",
+  "version": "0.0.1",
+  "description": "redux router that syncs history with store",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.yandex-team.ru:Unity/redux-tiny-router.git"
+  },
+  "keywords": [
+    "redux",
+    "router"
+  ],
+  "author": "Vitaliy Blinovskov (blinovskov@yandex-team.ru)",
+  "license": "ISC"
+}
