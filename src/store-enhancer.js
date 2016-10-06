@@ -1,7 +1,6 @@
 import * as actions from './action-creators';
-import parseLocation from './location-parser';
 
-export default ({ history, routes, slice }) => next => (reducer, initialState, enhancer) => {
+export default ({ history, slice, locationParser }) => next => (reducer, initialState, enhancer) => {
 
     // boilerplate
     if (typeof initialState === 'function' && typeof enhancer === 'undefined') {
@@ -10,7 +9,7 @@ export default ({ history, routes, slice }) => next => (reducer, initialState, e
     }
     const newInitialState = initialState || enhancer;
 
-    newInitialState[slice] = parseLocation(history.location);
+    newInitialState[slice] = locationParser(history.location);
 
     const store = next(reducer, newInitialState, enhancer);
 

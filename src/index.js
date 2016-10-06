@@ -1,27 +1,26 @@
-import enhancer from './enhancer';
+import enhancer from './store-enhancer';
 import reducer from './reducer';
 import middleware from './middleware';
 import { ACTION_TYPES } from './constants';
 import * as actions from './action-creators';
-
-const router = {
-    actionTypes: ACTION_TYPES,
-    ACTION_TYPES,
-    actions,
-    reducer,
-    enhancer,
-    middleware
-};
+import parser from './location-parser';
 
 export const createRouter = ({
     history,
     routes,
     slice
-}) => ({
-    ...router,
-    reducer: reducer({ routes }),
-    enhancer: enhancer({ history, routes, slice }),
-    middleware: middleware({ history, routes })
-});
+}) => {
 
-export default router;
+    const locationParser = parser({ routes });
+
+    return {
+        actions,
+        ACTION_TYPES,
+        actionTypes: ACTION_TYPES,
+        reducer: reducer({ locationParser }),
+        enhancer: enhancer({ history, slice, locationParser }),
+        middleware: middleware({ history })
+    }
+};
+
+export default createRouter;

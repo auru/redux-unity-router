@@ -1,6 +1,6 @@
 import { ACTION_PREFIX, ACTION_TYPES, HISTORY_METHODS} from './constants';
 
-export default ({ history, routes }) => ({ dispatch, getState }) => next => action => {
+export default ({ history }) => ({ dispatch, getState }) => next => action => {
 
     const { type, payload } = action;
 
