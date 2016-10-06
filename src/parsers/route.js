@@ -1,6 +1,30 @@
 import pathToRegexp from 'path-to-regexp';
+import { join as pathJoin } from 'path';
 
 let matchers = [];
+
+const flattenRoutes = (routes, parentRoutePath = '') => {
+
+    let result = [];
+
+    for (let route of routes) {
+
+        let routePath = typeof route.pattern === 'string' ? route.pattern : route.pattern.path;
+        routePath = pathJoin(parentRoutePath, routePath);
+
+        const routeQuery =  typeof route.pattern === 'string' ? '' : '?' + route.pattern.query;
+
+        if (Array.isArray(route.routes)) {
+            result = result.concat(flattenRoutes(route.routes, routePath));
+        }
+
+        route.pattern = routePath + routeQuery;
+
+        result = result.concat(route);
+    }
+
+    return result;
+};
 
 const createMatchers = routes => routes.map(route => {
     const regexp = pathToRegexp(route.pattern);
@@ -36,7 +60,7 @@ const matchPathToRoute = path => {
 };
 
 const createRouteParser = routes => {
-    matchers = createMatchers(routes);
+    matchers = createMatchers(flattenRoutes(routes));
     return matchPathToRoute;
 };
 
