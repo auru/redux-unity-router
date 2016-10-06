@@ -43,7 +43,7 @@ const createParamsFromKeys = (match, keys) => keys.reduce((result, key, index) =
 
 const matchPathToRoute = path => {
     for (let matcher of matchers) {
-        const { regexp, name, pattern } = matcher;
+        const { regexp, name, pattern, data = {} } = matcher;
 
         if (regexp.test(path)) {
             let keys = [];
@@ -52,7 +52,8 @@ const matchPathToRoute = path => {
             return {
                 name,
                 pattern,
-                params
+                params,
+                data
             }
         }
     }
