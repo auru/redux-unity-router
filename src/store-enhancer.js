@@ -1,15 +1,25 @@
 import * as actions from './action-creators';
+import { fromJS } from  'immutable';
 
-export default ({ history, slice, locationParser }) => next => (reducer, initialState, enhancer) => {
+const createInitialState = ({state, slice, val, immutable}) => {
+    if (immutable) {
+        state = state.set(slice, fromJS(val));
+    } else {
+        state[slice] = val;
+    }
+    return state;
+};
+
+export default ({ history, slice, locationParser, immutable }) => next => (reducer, initialState, enhancer) => {
 
     // boilerplate
     if (typeof initialState === 'function' && typeof enhancer === 'undefined') {
         enhancer = initialState;
         initialState = undefined
     }
-    const newInitialState = initialState || enhancer;
+    let newInitialState = initialState || enhancer;
 
-    newInitialState[slice] = locationParser(history.location);
+    newInitialState = createInitialState({ state: newInitialState, val: locationParser(history.location), slice, immutable });
 
     const store = next(reducer, newInitialState, enhancer);
 

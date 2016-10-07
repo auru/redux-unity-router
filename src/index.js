@@ -8,7 +8,8 @@ import parser from './parsers/location';
 export const createRouter = ({
     history,
     routes,
-    slice
+    slice,
+    immutable = false
 }) => {
     const locationParser = parser(routes);
 
@@ -16,8 +17,8 @@ export const createRouter = ({
         actions,
         ACTION_TYPES,
         actionTypes: ACTION_TYPES,
-        reducer: reducer({ locationParser }),
-        enhancer: enhancer({ history, slice, locationParser }),
+        reducer: reducer({ locationParser, immutable }),
+        enhancer: enhancer({ history, slice, locationParser, immutable }),
         middleware: middleware({ history })
     }
 };

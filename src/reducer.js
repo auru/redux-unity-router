@@ -1,10 +1,13 @@
 import { ACTION_TYPES } from './constants';
+import { fromJS } from 'immutable';
 
-export default ({ locationParser }) => (state = {}, { type, payload }) => {
+export default ({ locationParser, immutable }) => (state = immutable ? fromJS({}) : {}, { type, payload }) => {
 
     if (type === ACTION_TYPES.LOCATION_CHANGED) {
 
-        return locationParser(payload);
+        const result = locationParser(payload);
+
+        return immutable ? fromJS(result) : result;
     }
 
     return state;
