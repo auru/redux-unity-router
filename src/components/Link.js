@@ -22,12 +22,17 @@ class Link extends Component {
 
     handleClick(e) {
 
+
+        const { to, go, params, onClick, target } = this.props;
+
+        if (onClick) onClick(e);
+
+        if (e.target) return;
+
         e.preventDefault();
 
-        const { to, go, params } = this.props;
-
-        if (to) this.locationChange(to);
-        if (go) this.locationGo(go, params);
+        if (to) return this.locationChange(to);
+        if (go) return this.locationGo(go, params);
     }
 
     componentWillReceiveProps(props) {
@@ -43,7 +48,7 @@ class Link extends Component {
     checkActive() {
 
         const { to, path } = this.props;
-        const isActive = path.indexOf(to) !== -1;
+        const isActive = path.indexOf(to) !== 0;
 
         if (isActive !== this.state.isActive) {
             this.setState({
@@ -89,7 +94,9 @@ Link.propTypes = {
     }),
     go: PropTypes.string,
     params: PropTypes.object,
-    activeClass: PropTypes.string
+    activeClass: PropTypes.string,
+    onClick: PropTypes.func,
+    target: PropTypes.string
 };
 
 Link.defaultProps = {
