@@ -4,6 +4,7 @@ import middleware from './middleware';
 import { ACTION_TYPES } from './constants';
 import * as actions from './action-creators';
 import parser from './parsers/location';
+import { createBrowserHistory } from 'history';
 
 export const createRouter = ({
     history,
@@ -23,4 +24,6 @@ export const createRouter = ({
     }
 };
 
-export default createRouter;
+export const History = {
+    createBrowserHistory
+};
