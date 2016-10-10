@@ -1,5 +1,6 @@
 import pathToRegexp from 'path-to-regexp';
 import { join as pathJoin } from 'path';
+import { parse as qsParse } from 'query-string';
 
 let matchers = [];
 
@@ -9,16 +10,15 @@ const flattenRoutes = (routes, parentRoutePath = '') => {
 
     for (let route of routes) {
 
-        let routePath = typeof route.pattern === 'string' ? route.pattern : route.pattern.path;
-        routePath = pathJoin(parentRoutePath, routePath);
-
-        const routeQuery =  typeof route.pattern === 'string' ? '' : '?' + route.pattern.query;
-
-        if (Array.isArray(route.routes)) {
-            result = result.concat(flattenRoutes(route.routes, routePath));
+        if (typeof route.pattern === 'string') {
+            route.pattern = { path: route.pattern }
         }
 
-        route.pattern = routePath + routeQuery;
+        route.pattern.path = pathJoin(parentRoutePath, route.pattern.path);
+
+        if (Array.isArray(route.routes)) {
+            result = result.concat(flattenRoutes(route.routes, route.pattern.path));
+        }
 
         result = result.concat(route);
     }
@@ -27,12 +27,18 @@ const flattenRoutes = (routes, parentRoutePath = '') => {
 };
 
 const createMatchers = routes => routes.map(route => {
-    const regexp = pathToRegexp(route.pattern);
-    const name = route.name || route.pattern;
+    const regexp = pathToRegexp(route.pattern.path);
+    const name = route.name || route.pattern.path;
+    const query = Object.keys(route.pattern.query || {}).reduce( (result, item) => {
+        result[item] = new RegExp(route.pattern.query[item]);
+        return result;
+    }, {});
+
     return {
         ...route,
         name,
-        regexp
+        regexp,
+        query
     }
 });
 
@@ -42,18 +48,36 @@ const createParamsFromKeys = (match, keys) => keys.reduce((result, key, index) =
 }, {});
 
 const matchPathToRoute = path => {
-    for (let matcher of matchers) {
-        const { regexp, name, pattern, data = {} } = matcher;
 
-        if (regexp.test(path)) {
-            let keys = [];
-            const match = pathToRegexp(pattern, keys).exec(path);
-            const params = createParamsFromKeys(match, keys);
-            return {
-                name,
-                pattern,
-                params,
-                data
+    path = path.split('?');
+    const pathname = path.shift();
+    const pathQuery = qsParse(path.shift());
+
+    for (let matcher of matchers) {
+        const { regexp, query, name, pattern, data = {} } = matcher;
+
+        if (regexp.test(pathname)) {
+
+            let matchQuery = true;
+            let queryItems = Object.keys(query);
+            let queryItemsLength = queryItems.length;
+
+            while (matchQuery && queryItemsLength) {
+                const curQueryItem = queryItems[queryItemsLength - 1];
+                matchQuery = query[curQueryItem].test(pathQuery[curQueryItem]);
+                queryItemsLength--;
+            }
+
+            if (matchQuery) {
+                let keys = [];
+                const match = pathToRegexp(pattern.path, keys).exec(pathname);
+                const params = createParamsFromKeys(match, keys);
+                return {
+                    pattern,
+                    name,
+                    params,
+                    data
+                }
             }
         }
     }
