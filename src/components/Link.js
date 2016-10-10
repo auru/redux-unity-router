@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { parse } from 'url';
 import * as actions from '../action-creators';
 
@@ -88,10 +89,10 @@ class Link extends Component {
 }
 
 Link.propTypes = {
-    to: PropTypes.oneOfType({
+    to: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.object
-    }),
+    ]),
     go: PropTypes.string,
     params: PropTypes.object,
     activeClass: PropTypes.string,
@@ -121,4 +122,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default conect(mapStateToProps, mapDispatchToProps)(Link);
+export default connect(mapStateToProps, mapDispatchToProps)(Link);
