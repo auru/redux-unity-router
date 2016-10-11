@@ -1,44 +1,35 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { parse } from 'url';
+import { parse, format } from 'url';
 import * as actions from '../action-creators';
 
 class Link extends Component {
 
-    constructor(props) {
+    constructor(props, context) {
 
-        super(props);
+        super(props, context);
+
+        const { store, router } = context;
 
         this.handleClick = this.handleClick.bind(this);
-
-        this.props.slice = this.context.slice;
-        this.props.immutable = this.context.immutable;
-
+        this.store = store;
         this.state = {
             isActive: false
         };
-
-        this.checkActive();
     }
 
     handleClick(e) {
-
 
         const { to, go, params, onClick, target } = this.props;
 
         if (onClick) onClick(e);
 
-        if (e.target) return;
+        if (target) return;
 
         e.preventDefault();
 
         if (to) return this.locationChange(to);
         if (go) return this.locationGo(go, params);
-    }
-
-    componentWillReceiveProps(props) {
-
-        this.checkActive();
     }
 
     shouldComponentUpdate(props, state) {
@@ -60,22 +51,27 @@ class Link extends Component {
 
     locationChange(to) {
 
+        const { method } = this.props;
+
         if (typeof to === 'string') to = parse(to);
 
-        this.props.locationChange(to);
+        this.store.dispatch(actions[method](to));
     }
 
     locationGo(go, params) {
 
-        // TODO
+        this.store.dispatch(actions.goTo(to));
 
         return { go, params };
     }
 
     render() {
 
-        const { children, activeClass, to } = this.props;
-        const classes = this.state.isActive ? activeClass : '';
+        const { children, activeClass, className } = this.props;
+        const classes = this.state.isActive ? activeClass + className : className;
+        let { to } = this.props;
+
+        if (typeof to === 'object') to = format(to);
 
         return (
             <a
@@ -97,29 +93,20 @@ Link.propTypes = {
     params: PropTypes.object,
     activeClass: PropTypes.string,
     onClick: PropTypes.func,
-    target: PropTypes.string
+    target: PropTypes.string,
+    className: PropTypes.string,
+    method: PropTypes.string
 };
 
 Link.defaultProps = {
     to: '',
-    activeClass: ''
+    activeClass: '',
+    method: 'push'
 };
 
-function mapStateToProps(state, ownProps) {
+Link.contextTypes = {
+  routes: React.PropTypes.object,
+  store: React.PropTypes.object
+};
 
-    const { immutable, slice } = ownProps;
-    const path = immutable ? state.getIn([ slice, 'path' ]) : state[slice]['path'];
-
-    return {
-        path
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-
-    return {
-        locationChange: payload => actions.locationChange(payload)
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Link);
+export default Link;
