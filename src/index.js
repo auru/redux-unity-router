@@ -1,29 +1,12 @@
-import enhancer from './store-enhancer';
-import reducer from './reducer';
-import middleware from './middleware';
-import { ACTION_TYPES } from './constants';
-import * as actions from './action-creators';
-import parser from './parsers/location';
-import { createBrowserHistory } from 'history';
-
-export const createRouter = ({
-    history,
-    routes,
-    slice,
-    immutable = false
-}) => {
-    const locationParser = parser(routes);
-
-    return {
-        actions,
-        ACTION_TYPES,
-        actionTypes: ACTION_TYPES,
-        reducer: reducer({ locationParser, immutable }),
-        enhancer: enhancer({ history, slice, locationParser, immutable }),
-        middleware: middleware({ history })
-    }
-};
+import { createBrowserHistory, createHashHistory, createMemoryHistory } from 'history';
+import * as actionCreators from './action-creators';
 
 export const History = {
-    createBrowserHistory
+    createBrowserHistory,
+    createHashHistory,
+    createMemoryHistory
 };
+export const actions = actionCreators;
+export { ACTION_TYPES } from './constants';
+export { ACTION_TYPES as actionTypes } from './constants';
+export { default as createRouter } from './router';

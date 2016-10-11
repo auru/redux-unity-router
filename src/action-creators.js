@@ -29,3 +29,8 @@ export const goForward = payload => ({
     type: ACTION_TYPES.GO_FORWARD,
     payload
 });
+
+export const goToRoute = payload => ({
+    type: ACTION_TYPES.GO_TO_ROUTE,
+    payload
+});
