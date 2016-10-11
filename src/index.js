@@ -12,3 +12,4 @@ export { ACTION_TYPES as actionTypes } from './constants';
 export { default as createRouter } from './router';
 export { default as Link } from './components/Link';
 export { default as RouterProvider } from './components/Provider';
+export { default as Fragment } from './components/Fragment';

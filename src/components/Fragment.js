@@ -7,9 +7,11 @@ class Fragment extends Component {
         super(props, state);
 
         const { store, router } = this.context;
+        const { id } = this.props;
 
         this.store = store;
         this.router = router;
+        this.current = router.current ? `${router.current}:${id}` : id;
         this.handleChange = this.handleChange.bind(this);
 
         store.subscribe(this.handleChange);
@@ -23,29 +25,29 @@ class Fragment extends Component {
 
         let { router } = this.context;
 
-        const { id } = this.props;
-        const current = `${router.current}:${id}`;
-
-        router = { current, ...router };
-
-        return { router };
+        return { router: { ...router, current: this.current } };
     }
 
     handleChange() {
 
+        let { slice = 'router', immutable } = this.router;
+        let current = this.current;
+
         const state = this.store.getState();
-        const { slice = 'router', current, immutable } = this.router;
-        const routerStore = state[slice];
+        const { id } = this.props;
+        const routerStore = immutable ? state.get(slice) : state[slice];
+
+        current = current ? current : id;
 
         if (routerStore) {
-            const idPath = immutable ? routerStore.getIn([ 'router', 'idPath' ]) : routerStore.router.idPath;
+            const idPath = immutable ? routerStore.getIn([ 'route', 'idPath' ]) : routerStore.route.idPath;
             const match = (`${idPath}:`).indexOf(`${current}:`);
 
             if (match === 0 && !this.state.visible) {
                 this.setState({
                     visible: true
                 });
-            } else if (this.state.visible) {
+            } else if (match !== 0 && this.state.visible) {
                 this.setState({
                     visible: false
                 });
@@ -61,7 +63,7 @@ class Fragment extends Component {
 
         if (!visible) return null; // eslint-disable-line
         if (ChildComponent) return <ChildComponent />; // eslint-disable-line
-        if (children) return Children.count(children) === 1 ? Children.only(children) : <div>{children}</div>; // eslint-disable-line
+        if (children) return <div>{children}</div>; // eslint-disable-line
     }
 }
 
