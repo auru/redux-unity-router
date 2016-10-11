@@ -18,7 +18,11 @@ class Fragment extends Component {
             visible: false
         };
 
-        store.subscribe(this.handleChange);
+        this.unsubscribe = store.subscribe(this.handleChange);
+    }
+
+    isSubscribed() {
+        return typeof this.unsubscribe === 'function'
     }
 
     getChildContext() {
@@ -34,10 +38,16 @@ class Fragment extends Component {
     }
 
     componentWillUnmount() {
-        this.removed = true;
+
+        if (this.unsubscribe) {
+            this.unsubscribe()
+            this.unsubscribe = null
+        }
     }
 
     handleChange() {
+
+        if (!this.isSubscribed) return;
 
         let { slice = 'router', immutable } = this.router;
         let current = this.current;

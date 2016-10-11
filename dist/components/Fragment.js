@@ -43,11 +43,16 @@ var Fragment = function (_Component) {
             visible: false
         };
 
-        store.subscribe(_this.handleChange);
+        _this.unsubscribe = store.subscribe(_this.handleChange);
         return _this;
     }
 
     _createClass(Fragment, [{
+        key: 'isSubscribed',
+        value: function isSubscribed() {
+            return typeof this.unsubscribe === 'function';
+        }
+    }, {
         key: 'getChildContext',
         value: function getChildContext() {
             var router = this.context.router;
@@ -64,11 +69,18 @@ var Fragment = function (_Component) {
     }, {
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
-            this.removed = true;
+
+            if (this.unsubscribe) {
+                this.unsubscribe();
+                this.unsubscribe = null;
+            }
         }
     }, {
         key: 'handleChange',
         value: function handleChange() {
+
+            if (!this.isSubscribed) return;
+
             var _router = this.router;
             var _router$slice = _router.slice;
             var slice = _router$slice === undefined ? 'router' : _router$slice;
