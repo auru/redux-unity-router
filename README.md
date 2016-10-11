@@ -10,7 +10,7 @@ Simple routing for your redux application.
 import { createRouter } from 'redux-tiny-router';
 
 const routes = {
-    name: 'main',
+    id: 'main',
     pattern: '/main/'
     routes: [
         {
