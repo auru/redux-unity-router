@@ -4,15 +4,16 @@
   "description": "redux router that syncs history with store",
   "main": "dist/index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint --ignore-path=.gitignore --fix ./src",
-    "lint-prod": "NODE_ENV='production' npm run lint",
-    "test": "npm run lint-prod && ava --verbose",
-    "test-watch": "npm run lint && ava --verbose --watch",
+    "build": "npm run lint-prod && npm run build-all",
+    "build-all": "npm run clean && npm run build-dist && npm run build-umd && npm run build-umd-min",
     "build-dist": "./node_modules/.bin/babel src --out-dir dist",
     "build-umd": "./node_modules/.bin/webpack --bail --config config/webpack/umd.js",
     "build-umd-min": "./node_modules/.bin/webpack --bail --config config/webpack/umd.min.js",
-    "build-all": "npm run build-dist && npm run build-umd && npm run build-umd-min",
-    "build": "npm run lint-prod && npm run build-all"
+    "clean": "./node_modules/.bin/rimraf dist umd",
+    "lint": "./node_modules/.bin/eslint --ignore-path=.gitignore --fix ./src",
+    "lint-prod": "NODE_ENV='production' npm run lint",
+    "test": "npm run lint-prod && ava --verbose",
+    "test-watch": "npm run lint && ava --verbose --watch"
   },
   "repository": {
     "type": "git",
@@ -23,7 +24,8 @@
   },
   "keywords": [
     "redux",
-    "router"
+    "router",
+    "history"
   ],
   "author": "Vitaliy Blinovskov (blinovskov@yandex-team.ru)",
   "license": "ISC",
@@ -46,6 +48,7 @@
     "babel-preset-stage-0": "^6.16.0",
     "eslint-plugin-ava": "^3.1.0",
     "immutable": "^3.8.1",
+    "rimraf": "^2.5.4",
     "webpack": "^1.13.2"
   }
 }
