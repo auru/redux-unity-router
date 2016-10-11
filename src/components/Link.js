@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import { parse, format } from 'url';
 import * as actions from '../action-creators';
 
@@ -78,11 +77,6 @@ class Link extends Component {
         this.store.dispatch(actions[method](to));
     }
 
-    locationGo(go, params) {
-
-        return { go, params };
-    }
-
     render() {
 
         const { children, activeClass, className } = this.props;
@@ -93,7 +87,8 @@ class Link extends Component {
             <a
             href={format(href)}
             className={classes}
-            onClick={this.handleClick}>
+            onClick={this.handleClick}
+            >
                 {children}
             </a>
         );
@@ -124,8 +119,8 @@ Link.defaultProps = {
 };
 
 Link.contextTypes = {
-  router: PropTypes.object,
-  store: PropTypes.object
+    router: PropTypes.object,
+    store: PropTypes.object
 };
 
 export default Link;
