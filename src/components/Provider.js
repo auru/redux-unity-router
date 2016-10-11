@@ -1,11 +1,18 @@
 import React, { Children, Component, PropTypes } from 'react';
+import createRouteToLocationParser from '../parsers/routeToLocation';
 
 class Provider extends Component {
     getChildContext() {
 
         const { immutable, slice, routes } = this.props;
+        const router = {
+            immutable,
+            slice,
+            routes,
+            parseRoute: createRouteToLocationParser(routes)
+        };
 
-        return { router: { immutable, slice, routes } };
+        return { router };
     }
 
     render() {
@@ -16,14 +23,14 @@ class Provider extends Component {
 Provider.defaultProps = {
     immutable: false,
     slice: 'router',
-    routes: {}
+    routes: []
 }
 
 Provider.childContextTypes = {
     router: PropTypes.shape({
         slice: PropTypes.string,
         immutable: PropTypes.bool,
-        routes: PropTypes.object
+        routes: PropTypes.array
     }).isRequired
 };
 

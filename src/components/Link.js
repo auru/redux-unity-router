@@ -13,14 +13,35 @@ class Link extends Component {
 
         this.handleClick = this.handleClick.bind(this);
         this.store = store;
+        this.router = router;
         this.state = {
             isActive: false
         };
+
+        const href = this.getHref();
+        this.href = typeof href === 'string' ? parse(href) : href;
+    }
+
+    getHref() {
+
+        const { to, go = {} } = this.props;
+
+        if (to) {
+            return to;
+        } else if (go) {
+            if (typeof go === 'string') {
+                return this.router.parseRoute({ id: go });
+            } else {
+                return this.router.parseRoute({ ...go });
+            }
+        }
+
+        return false;
     }
 
     handleClick(e) {
 
-        const { to, go, params, onClick, target } = this.props;
+        const { onClick, target } = this.props;
 
         if (onClick) onClick(e);
 
@@ -28,8 +49,7 @@ class Link extends Component {
 
         e.preventDefault();
 
-        if (to) return this.locationChange(to);
-        if (go) return this.locationGo(go, params);
+        return this.locationChange(this.href);
     }
 
     shouldComponentUpdate(props, state) {
@@ -67,13 +87,11 @@ class Link extends Component {
 
         const { children, activeClass, className } = this.props;
         const classes = this.state.isActive ? activeClass + className : className;
-        let { to } = this.props;
-
-        if (typeof to === 'object') to = format(to);
+        let href = this.href;
 
         return (
             <a
-            href={to}
+            href={format(href)}
             className={classes}
             onClick={this.handleClick}>
                 {children}
@@ -87,7 +105,10 @@ Link.propTypes = {
         PropTypes.string,
         PropTypes.object
     ]),
-    go: PropTypes.string,
+    go: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object
+    ]),
     params: PropTypes.object,
     activeClass: PropTypes.string,
     onClick: PropTypes.func,
@@ -103,8 +124,8 @@ Link.defaultProps = {
 };
 
 Link.contextTypes = {
-  routes: React.PropTypes.object,
-  store: React.PropTypes.object
+  router: PropTypes.object,
+  store: PropTypes.object
 };
 
 export default Link;
