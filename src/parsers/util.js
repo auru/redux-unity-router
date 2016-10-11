@@ -21,18 +21,19 @@ export const flattenRoutes = (routes, parentRoutePath = '') => {
             result = result.concat(flattenRoutes(route.routes, path));
         }
 
-        if (__DEV__ && console && typeof console.warn === 'function') {
+        if (__DEV__ && console && typeof console.warn === 'function') { // eslint-disable-line no-console
             if (route.id === undefined) {
-                console.warn(`Route ${JSON.stringify(pattern)} has no id`);
+                console.warn(`Route ${JSON.stringify(pattern)} has no id`); // eslint-disable-line no-console
             } else if (!['string', 'number'].includes(typeof route.id)) {
-                console.warn(`Route ${JSON.stringify(pattern)} has id that is not type of string or number`);
+                console.warn(`Route ${JSON.stringify(pattern)} has id that is not type of string or number`); // eslint-disable-line no-console
             }
         }
 
-        route.id = route.id || path.toString();
+        const { id = path.toString(), data = {}} = route;
 
         const item = {
-            ...route,
+            id,
+            data,
             ...{
                 pattern: {
                     ...pattern,

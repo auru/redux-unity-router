@@ -7,18 +7,18 @@ export default ({ history, routeParser }) => ({ dispatch, getState }) => next =>
 
         if (action.type === ACTION_TYPES.GO_TO_ROUTE) {
             action.type = ACTION_TYPES.PUSH;
-            action.payload = routeParser(action.payload)
+            action.payload = routeParser(action.payload);
         }
 
         if ([ACTION_TYPES.PUSH, ACTION_TYPES.REPLACE].includes(action.type)) {
 
             action.payload = typeof action.payload === 'string' ? parsePath(action.payload) : action.payload;
 
-            const sameLocation = history.location.pathname  === action.payload.pathname
+            const sameLocation = history.location.pathname === action.payload.pathname
                               && history.location.search === action.payload.search
-                              && history.location.hash   === action.payload.hash;
+                              && history.location.hash === action.payload.hash;
 
-            action.type = sameLocation ? ACTION_TYPES.REPLACE : action.type
+            action.type = sameLocation ? ACTION_TYPES.REPLACE : action.type;
         }
 
         if (HISTORY_METHODS[action.type]) {
@@ -28,5 +28,5 @@ export default ({ history, routeParser }) => ({ dispatch, getState }) => next =>
         return;
     }
 
-    return next(action);
-}
+    return next(action); // eslint-disable-line consistent-return
+};
