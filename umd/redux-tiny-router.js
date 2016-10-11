@@ -150,6 +150,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var __DEV__ = exports.__DEV__ = ("production") === 'development';
 	var __PROD__ = exports.__PROD__ = !__DEV__;
+	
+	var ID_DELIM = exports.ID_DELIM = ':';
 
 /***/ },
 /* 2 */
@@ -7047,6 +7049,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var regexp = matcher.regexp;
 	                var query = matcher.query;
 	                var id = matcher.id;
+	                var idPath = matcher.idPath;
 	                var pattern = matcher.pattern;
 	                var _matcher$data = matcher.data;
 	                var data = _matcher$data === undefined ? {} : _matcher$data;
@@ -7071,6 +7074,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        return {
 	                            pattern: pattern,
 	                            id: id,
+	                            idPath: idPath,
 	                            params: params,
 	                            data: data
 	                        };
@@ -7581,6 +7585,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var flattenRoutes = exports.flattenRoutes = function flattenRoutes(routes) {
 	    var parentRoutePath = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+	    var parentIdPath = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
 	
 	
 	    var result = [];
@@ -7605,8 +7610,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	            path = (0, _path.join)(parentRoutePath, path);
 	
+	            var _route$id = route.id;
+	            var id = _route$id === undefined ? path.toString() : _route$id;
+	            var _route$data = route.data;
+	            var data = _route$data === undefined ? {} : _route$data;
+	
+	            var idPath = [parentIdPath, id].filter(function (item) {
+	                return item !== '';
+	            }).join(_constants.ID_DELIM);
+	
 	            if (Array.isArray(route.routes)) {
-	                result = result.concat(flattenRoutes(route.routes, path));
+	                result = result.concat(flattenRoutes(route.routes, path, idPath));
 	            }
 	
 	            if (_constants.__DEV__ && console && typeof console.warn === 'function') {
@@ -7618,14 +7632,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            }
 	
-	            var _route$id = route.id;
-	            var id = _route$id === undefined ? path.toString() : _route$id;
-	            var _route$data = route.data;
-	            var data = _route$data === undefined ? {} : _route$data;
-	
-	
 	            var item = _extends({
 	                id: id,
+	                idPath: idPath,
 	                data: data
 	            }, {
 	                pattern: _extends({}, pattern, {

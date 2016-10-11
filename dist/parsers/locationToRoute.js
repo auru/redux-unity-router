@@ -42,6 +42,7 @@ var createMatchPathToRoute = function createMatchPathToRoute(matchers) {
                 var regexp = matcher.regexp;
                 var query = matcher.query;
                 var id = matcher.id;
+                var idPath = matcher.idPath;
                 var pattern = matcher.pattern;
                 var _matcher$data = matcher.data;
                 var data = _matcher$data === undefined ? {} : _matcher$data;
@@ -66,6 +67,7 @@ var createMatchPathToRoute = function createMatchPathToRoute(matchers) {
                         return {
                             pattern: pattern,
                             id: id,
+                            idPath: idPath,
                             params: params,
                             data: data
                         };

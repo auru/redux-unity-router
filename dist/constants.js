@@ -24,3 +24,5 @@ var HISTORY_METHODS = exports.HISTORY_METHODS = (_HISTORY_METHODS = {}, _defineP
 
 var __DEV__ = exports.__DEV__ = process.env.NODE_ENV === 'development';
 var __PROD__ = exports.__PROD__ = !__DEV__;
+
+var ID_DELIM = exports.ID_DELIM = ':';

@@ -76,6 +76,6 @@
   },
   "pre-commit": [
     "precommit-msg",
-    "build"
+    "test"
   ]
 }

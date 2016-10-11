@@ -15,6 +15,7 @@ var _constants = require('../constants');
 
 var flattenRoutes = exports.flattenRoutes = function flattenRoutes(routes) {
     var parentRoutePath = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+    var parentIdPath = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
 
 
     var result = [];
@@ -39,8 +40,17 @@ var flattenRoutes = exports.flattenRoutes = function flattenRoutes(routes) {
 
             path = (0, _path.join)(parentRoutePath, path);
 
+            var _route$id = route.id;
+            var id = _route$id === undefined ? path.toString() : _route$id;
+            var _route$data = route.data;
+            var data = _route$data === undefined ? {} : _route$data;
+
+            var idPath = [parentIdPath, id].filter(function (item) {
+                return item !== '';
+            }).join(_constants.ID_DELIM);
+
             if (Array.isArray(route.routes)) {
-                result = result.concat(flattenRoutes(route.routes, path));
+                result = result.concat(flattenRoutes(route.routes, path, idPath));
             }
 
             if (_constants.__DEV__ && console && typeof console.warn === 'function') {
@@ -52,14 +62,9 @@ var flattenRoutes = exports.flattenRoutes = function flattenRoutes(routes) {
                 }
             }
 
-            var _route$id = route.id;
-            var id = _route$id === undefined ? path.toString() : _route$id;
-            var _route$data = route.data;
-            var data = _route$data === undefined ? {} : _route$data;
-
-
             var item = _extends({
                 id: id,
+                idPath: idPath,
                 data: data
             }, {
                 pattern: _extends({}, pattern, {
