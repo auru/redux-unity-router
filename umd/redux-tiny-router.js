@@ -14075,12 +14075,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var immutable = _props.immutable;
 	            var slice = _props.slice;
 	            var routes = _props.routes;
+	            var current = _props.current;
 	
 	            var router = {
 	                immutable: immutable,
 	                slice: slice,
 	                routes: routes,
-	                parseRoute: (0, _routeToLocation2.default)(routes)
+	                parseRoute: (0, _routeToLocation2.default)(routes),
+	                current: current
 	            };
 	
 	            return { router: router };
@@ -14098,7 +14100,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	Provider.defaultProps = {
 	    immutable: false,
 	    slice: 'router',
-	    routes: []
+	    routes: [],
+	    current: ''
 	};
 	
 	Provider.childContextTypes = {
