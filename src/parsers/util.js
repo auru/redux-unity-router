@@ -29,10 +29,11 @@ export const flattenRoutes = (routes, parentRoutePath = '') => {
             }
         }
 
-        route.id = route.id || path.toString();
+        const { id = path.toString(), data = {}} = route;
 
         const item = {
-            ...route,
+            id,
+            data,
             ...{
                 pattern: {
                     ...pattern,

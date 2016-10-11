@@ -4,7 +4,7 @@
   "description": "redux router that syncs history with store",
   "main": "dist/index.js",
   "scripts": {
-    "build": "npm run lint-prod && npm run build-all",
+    "build": "npm run test && npm run build-all",
     "build-all": "npm run clean && npm run build-dist && npm run build-umd && npm run build-umd-min",
     "build-dist": "./node_modules/.bin/babel src --out-dir dist",
     "build-umd": "./node_modules/.bin/webpack --bail --config config/webpack/umd.js",
@@ -12,8 +12,9 @@
     "clean": "./node_modules/.bin/rimraf dist umd",
     "lint": "./node_modules/.bin/eslint --ignore-path=.gitignore --fix ./src",
     "lint-prod": "NODE_ENV='production' npm run lint",
-    "test": "npm run lint-prod && ava --verbose",
-    "test-watch": "npm run lint && ava --verbose --watch"
+    "prepublish": "npm run build",
+    "test": "npm run lint-prod && ./node_modules/.bin/ava --verbose",
+    "test-watch": "npm run lint && ./node_modules/.bin/ava --verbose --watch"
   },
   "repository": {
     "type": "git",
@@ -50,5 +51,23 @@
     "immutable": "^3.8.1",
     "rimraf": "^2.5.4",
     "webpack": "^1.13.2"
+  },
+  "ava": {
+    "files": [
+      "test/**/*.spec.js"
+    ],
+    "source": [
+      "**/*.{js,jsx}",
+      "!public/**/*"
+    ],
+    "concurrency": 4,
+    "failFast": false,
+    "tap": false,
+    "require": [
+      "babel-register",
+      "babel-polyfill",
+      "./test/helpers/setup.js"
+    ],
+    "babel": "inherit"
   }
 }
