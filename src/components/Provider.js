@@ -1,4 +1,4 @@
-import React, { Children, Component, PropTypes } from 'react';
+import { Children, Component, PropTypes } from 'react';
 import createRouteToLocationParser from '../parsers/routeToLocation';
 
 class Provider extends Component {
@@ -26,7 +26,7 @@ Provider.defaultProps = {
     slice: 'router',
     routes: [],
     current: ''
-}
+};
 
 Provider.childContextTypes = {
     router: PropTypes.shape({

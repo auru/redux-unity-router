@@ -7,7 +7,7 @@ class Fragment extends Component {
         let { router } = this.context;
 
         const { id } = this.props;
-        const  current = `${router.current}:${id}`;
+        const current = `${router.current}:${id}`;
 
         router = { current, ...router };
 
@@ -19,7 +19,7 @@ class Fragment extends Component {
 
         super(props, state);
 
-        const { store, router, current } = this.context;
+        const { store, router } = this.context;
 
         this.store = store;
         this.router = router;
@@ -34,7 +34,7 @@ class Fragment extends Component {
 
     handleChange() {
 
-        const state = this.store.getState()
+        const state = this.store.getState();
         const { slice = 'router', current, immutable } = this.router;
         const routerStore = state[slice];
 
@@ -67,8 +67,8 @@ class Fragment extends Component {
 }
 
 Fragment.contextTypes = {
-  router: PropTypes.object,
-  store: PropTypes.object
+    router: PropTypes.object,
+    store: PropTypes.object
 };
 
 Fragment.propTypes = {
