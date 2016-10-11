@@ -36,3 +36,4 @@ var createLocationToStateParser = function createLocationToStateParser(routes) {
 };
 
 exports.default = createLocationToStateParser;
+//# sourceMappingURL=locationToState.js.map

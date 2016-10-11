@@ -28,3 +28,4 @@ exports.default = function (_ref) {
         return state;
     };
 };
+//# sourceMappingURL=reducer.js.map

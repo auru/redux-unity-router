@@ -74,3 +74,4 @@ Provider.childContextTypes = {
 };
 
 exports.default = Provider;
+//# sourceMappingURL=Provider.js.map

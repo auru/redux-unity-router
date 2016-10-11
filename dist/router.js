@@ -45,3 +45,4 @@ var createRouter = function createRouter(_ref) {
 };
 
 exports.default = createRouter;
+//# sourceMappingURL=router.js.map

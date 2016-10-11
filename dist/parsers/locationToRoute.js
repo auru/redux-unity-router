@@ -116,3 +116,4 @@ var createLocationToRouteParser = function createLocationToRouteParser(routes) {
 };
 
 exports.default = createLocationToRouteParser;
+//# sourceMappingURL=locationToRoute.js.map

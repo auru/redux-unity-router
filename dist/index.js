@@ -63,3 +63,4 @@ var History = exports.History = {
     createMemoryHistory: _history.createMemoryHistory
 };
 var actions = exports.actions = actionCreators;
+//# sourceMappingURL=index.js.map

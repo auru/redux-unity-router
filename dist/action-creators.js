@@ -55,3 +55,4 @@ var goToRoute = exports.goToRoute = function goToRoute(payload) {
         payload: payload
     };
 };
+//# sourceMappingURL=action-creators.js.map

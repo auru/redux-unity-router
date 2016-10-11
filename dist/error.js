@@ -10,3 +10,4 @@ function RouterError(message) {
 RouterError.prototype = Error.prototype;
 
 exports.default = RouterError;
+//# sourceMappingURL=error.js.map
