@@ -4,7 +4,11 @@
   "description": "redux router that syncs history with store",
   "main": "dist/index.js",
   "scripts": {
-    "build": "./node_modules/.bin/babel src --out-dir dist",
+    "build-dist": "./node_modules/.bin/babel src --out-dir dist",
+    "build-umd": "./node_modules/.bin/webpack --bail --config config/webpack/umd.js",
+    "build-umd-min": "./node_modules/.bin/webpack --bail --config config/webpack/umd.min.js",
+    "build-all": "npm run build-dist && npm run build-umd && npm run build-umd-min",
+    "build": "npm run build-all",
     "test": "test"
   },
   "repository": {
@@ -20,9 +24,11 @@
   ],
   "author": "Vitaliy Blinovskov (blinovskov@yandex-team.ru)",
   "license": "ISC",
+  "peerDependencies": {
+    "immutable": "^3.8.1"
+  },
   "dependencies": {
     "history": "^4.3.0",
-    "immutable": "^3.8.1",
     "path": "^0.12.7",
     "path-to-regexp": "^1.6.0",
     "query-string": "^4.2.3"
