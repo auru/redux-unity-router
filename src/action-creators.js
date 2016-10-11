@@ -5,11 +5,6 @@ export const locationChange = payload => ({
     payload
 });
 
-export const goTo = payload => ({
-    type: ACTION_TYPES.GO_TO,
-    payload
-});
-
 export const push = payload => ({
     type: ACTION_TYPES.PUSH,
     payload
@@ -32,5 +27,10 @@ export const goBack = payload => ({
 
 export const goForward = payload => ({
     type: ACTION_TYPES.GO_FORWARD,
+    payload
+});
+
+export const goToRoute = payload => ({
+    type: ACTION_TYPES.GO_TO_ROUTE,
     payload
 });
