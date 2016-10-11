@@ -1,3 +1,5 @@
+import { ID_DELIM } from '../../src/constants';
+
 export const initialRoutes = [
     {
         id: 'index',
@@ -45,6 +47,7 @@ export const initialRoutes = [
 export const expectedRoutes = [
     {
         id: 'main+param+query',
+        idPath: ['index', 'main', 'main+param+query'].join(ID_DELIM),
         pattern: {
             path: '/main/:param',
             query: {
@@ -55,6 +58,7 @@ export const expectedRoutes = [
     },
     {
         id: 'main+param',
+        idPath: ['index', 'main', 'main+param'].join(ID_DELIM),
         pattern: {
             path: '/main/:param',
         },
@@ -62,6 +66,7 @@ export const expectedRoutes = [
     },
     {
         id: 'main',
+        idPath: ['index', 'main'].join(ID_DELIM),
         pattern: {
             path: '/main/'
         },
@@ -71,6 +76,7 @@ export const expectedRoutes = [
     },
     {
         id: 'test',
+        idPath: ['index', 'test'].join(ID_DELIM),
         pattern: {
             path: '/test/'
         },
@@ -78,6 +84,7 @@ export const expectedRoutes = [
     },
     {
         id: '/empty/',
+        idPath: ['index', '/empty/'].join(ID_DELIM),
         pattern: {
             path: '/empty/'
         },
@@ -85,6 +92,7 @@ export const expectedRoutes = [
     },
     {
         id: 'index',
+        idPath: 'index',
         pattern: {
             path: '/'
         },

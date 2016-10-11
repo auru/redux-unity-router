@@ -14,7 +14,7 @@ const createMatchPathToRoute = matchers => path => {
     const pathQuery = qs.parse(path.shift());
 
     for (let matcher of matchers) {
-        const { regexp, query, id, pattern, data = {} } = matcher;
+        const { regexp, query, id, idPath, pattern, data = {} } = matcher;
 
         if (regexp.test(pathname)) {
 
@@ -35,6 +35,7 @@ const createMatchPathToRoute = matchers => path => {
                 return {
                     pattern,
                     id,
+                    idPath,
                     params,
                     data
                 };
