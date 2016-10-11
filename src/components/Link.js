@@ -60,8 +60,6 @@ class Link extends Component {
 
     locationGo(go, params) {
 
-        this.store.dispatch(actions.goTo(to));
-
         return { go, params };
     }
 
