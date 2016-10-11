@@ -14,14 +14,16 @@ const routes = {
     pattern: '/main/'
     routes: [
         {
-            name: 'tree',
-            pattern: '/:test/',
+            id: 'User',
+            pattern: '/:userId/',
             routes: [
                 {
-                    name: 'main'
+                    id: 'UserProfile'
+                    pattern: '/profile'
                 },
                 {
-                    name: 'MainTestHello'
+                    id: 'UserEdit'
+                    pattern: '/edit'
                 }
             ]
         }
