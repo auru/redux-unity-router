@@ -2,7 +2,7 @@
   "name": "redux-tiny-router",
   "version": "0.0.1",
   "description": "redux router that syncs history with store",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "test"
   },
@@ -22,5 +22,9 @@
     "path": "^0.12.7",
     "path-to-regexp": "^1.6.0",
     "query-string": "^4.2.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.17.0",
+    "webpack": "^1.13.2"
   }
 }
