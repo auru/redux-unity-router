@@ -1,5 +1,5 @@
 import * as actions from './action-creators';
-import { fromJS } from  'immutable';
+import { fromJS } from 'immutable';
 
 const createInitialState = ({state, slice, val, immutable}) => {
     if (immutable) {
@@ -15,7 +15,7 @@ export default ({ history, slice, locationParser, immutable }) => next => (reduc
     // boilerplate
     if (typeof initialState === 'function' && typeof enhancer === 'undefined') {
         enhancer = initialState;
-        initialState = undefined
+        initialState = undefined;
     }
     let newInitialState = initialState || enhancer;
 
@@ -28,4 +28,4 @@ export default ({ history, slice, locationParser, immutable }) => next => (reduc
     ));
 
     return store;
-}
+};

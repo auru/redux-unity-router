@@ -18,7 +18,7 @@ const createRouter = ({
         reducer: reducer({ locationParser, immutable }),
         enhancer: enhancer({ history, slice, locationParser, immutable }),
         middleware: middleware({ history, routeParser })
-    }
+    };
 };
 
 export default createRouter;

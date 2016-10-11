@@ -15,7 +15,7 @@ export const HISTORY_METHODS = {
     [ACTION_TYPES.REPLACE]: 'replace',
     [ACTION_TYPES.GO]: 'go',
     [ACTION_TYPES.GO_BACK]: 'goBack',
-    [ACTION_TYPES.GO_FORWARD]: 'goForward',
+    [ACTION_TYPES.GO_FORWARD]: 'goForward'
 };
 
 export const __DEV__ = process.env.NODE_ENV === 'development';

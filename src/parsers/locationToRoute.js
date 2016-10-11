@@ -37,11 +37,11 @@ const createMatchPathToRoute = matchers => path => {
                     id,
                     params,
                     data
-                }
+                };
             }
         }
     }
-    return {}
+    return {};
 };
 
 const createMatchers = routes => flattenRoutes(routes).map(route => {
@@ -57,7 +57,7 @@ const createMatchers = routes => flattenRoutes(routes).map(route => {
         id,
         regexp,
         query
-    }
+    };
 });
 
 const createLocationToRouteParser = routes => {
