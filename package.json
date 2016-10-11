@@ -17,6 +17,7 @@
   "author": "Vitaliy Blinovskov (blinovskov@yandex-team.ru)",
   "license": "ISC",
   "dependencies": {
+    "history": "^4.3.0",
     "immutable": "^3.8.1",
     "path": "^0.12.7",
     "path-to-regexp": "^1.6.0",
