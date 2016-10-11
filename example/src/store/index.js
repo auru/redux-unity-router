@@ -6,21 +6,25 @@ import createHistory from 'history/createBrowserHistory'
 const history = createHistory();
 const routes = [
     {
-        id: 'main',
+        id: 'Main',
         pattern: '/main/',
         data: {
             pageTitle: 'test'
         },
         routes: [
             {
-                id: 'user',
+                id: 'User',
                 pattern: '/user'
+            },
+            {
+                id: 'default',
+                pattern: '*'
             }
         ]
     },
     {
-        id: 'test',
-        pattern: '/test/'
+        id: 'Settings',
+        pattern: '/application/settings/'
     }
 ];
 

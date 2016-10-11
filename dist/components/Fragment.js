@@ -31,17 +31,19 @@ var Fragment = function (_Component) {
         var _this$context = _this.context;
         var store = _this$context.store;
         var router = _this$context.router;
+        var id = _this.props.id;
 
 
         _this.store = store;
         _this.router = router;
+        _this.current = router.current ? router.current + ':' + id : id;
         _this.handleChange = _this.handleChange.bind(_this);
-
-        store.subscribe(_this.handleChange);
 
         _this.state = {
             visible: false
         };
+
+        store.subscribe(_this.handleChange);
         return _this;
     }
 
@@ -49,36 +51,47 @@ var Fragment = function (_Component) {
         key: 'getChildContext',
         value: function getChildContext() {
             var router = this.context.router;
-            var id = this.props.id;
 
-            var current = router.current + ':' + id;
 
-            router = _extends({ current: current }, router);
+            return { router: _extends({}, router, { current: this.current }) };
+        }
+    }, {
+        key: 'componentWillMount',
+        value: function componentWillMount() {
 
-            return { router: router };
+            this.handleChange();
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            this.removed = true;
         }
     }, {
         key: 'handleChange',
         value: function handleChange() {
-
-            var state = this.store.getState();
             var _router = this.router;
             var _router$slice = _router.slice;
             var slice = _router$slice === undefined ? 'router' : _router$slice;
-            var current = _router.current;
             var immutable = _router.immutable;
 
-            var routerStore = state[slice];
+            var current = this.current;
+
+            var state = this.store.getState();
+            var id = this.props.id;
+
+            var routerStore = immutable ? state.get(slice) : state[slice];
+
+            current = current ? current : id;
 
             if (routerStore) {
-                var idPath = immutable ? routerStore.getIn(['router', 'idPath']) : routerStore.router.idPath;
+                var idPath = immutable ? routerStore.getIn(['route', 'idPath']) : routerStore.route.idPath;
                 var match = (idPath + ':').indexOf(current + ':');
 
                 if (match === 0 && !this.state.visible) {
                     this.setState({
                         visible: true
                     });
-                } else if (this.state.visible) {
+                } else if (match !== 0 && this.state.visible && !this.removed) {
                     this.setState({
                         visible: false
                     });
@@ -94,9 +107,9 @@ var Fragment = function (_Component) {
             var ChildComponent = _props.component;
 
 
-            if (!visible) return null; // eslint-disable-line
+            if (!visible || this.removed) return null; // eslint-disable-line
             if (ChildComponent) return _react2.default.createElement(ChildComponent, null); // eslint-disable-line
-            if (children) return _react.Children.count(children) === 1 ? _react.Children.only(children) : _react2.default.createElement(
+            if (children) return _react2.default.createElement(
                 'div',
                 null,
                 children
@@ -114,7 +127,7 @@ Fragment.contextTypes = {
 
 Fragment.propTypes = {
     id: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number]),
-    children: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.array]),
+    children: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.string, _react.PropTypes.array]),
     component: _react.PropTypes.object
 };
 

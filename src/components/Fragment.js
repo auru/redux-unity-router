@@ -14,11 +14,11 @@ class Fragment extends Component {
         this.current = router.current ? `${router.current}:${id}` : id;
         this.handleChange = this.handleChange.bind(this);
 
-        store.subscribe(this.handleChange);
-
         this.state = {
             visible: false
         };
+
+        store.subscribe(this.handleChange);
     }
 
     getChildContext() {
@@ -26,6 +26,15 @@ class Fragment extends Component {
         let { router } = this.context;
 
         return { router: { ...router, current: this.current } };
+    }
+
+    componentWillMount() {
+
+        this.handleChange();
+    }
+
+    componentWillUnmount() {
+        this.removed = true;
     }
 
     handleChange() {
@@ -47,7 +56,7 @@ class Fragment extends Component {
                 this.setState({
                     visible: true
                 });
-            } else if (match !== 0 && this.state.visible) {
+            } else if (match !== 0 && this.state.visible && !this.removed) {
                 this.setState({
                     visible: false
                 });
@@ -61,7 +70,7 @@ class Fragment extends Component {
         const { visible } = this.state;
         const { children, component: ChildComponent} = this.props;
 
-        if (!visible) return null; // eslint-disable-line
+        if (!visible || this.removed) return null; // eslint-disable-line
         if (ChildComponent) return <ChildComponent />; // eslint-disable-line
         if (children) return <div>{children}</div>; // eslint-disable-line
     }
@@ -78,6 +87,7 @@ Fragment.propTypes = {
         PropTypes.number
     ]),
     children: PropTypes.oneOfType([
+        PropTypes.object,
         PropTypes.string,
         PropTypes.array
     ]),

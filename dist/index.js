@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.RouterProvider = exports.Link = exports.createRouter = exports.actionTypes = exports.ACTION_TYPES = exports.actions = exports.History = undefined;
+exports.Fragment = exports.RouterProvider = exports.Link = exports.createRouter = exports.actionTypes = exports.ACTION_TYPES = exports.actions = exports.History = undefined;
 
 var _constants = require('./constants');
 
@@ -44,6 +44,15 @@ Object.defineProperty(exports, 'RouterProvider', {
     enumerable: true,
     get: function get() {
         return _interopRequireDefault(_Provider).default;
+    }
+});
+
+var _Fragment = require('./components/Fragment');
+
+Object.defineProperty(exports, 'Fragment', {
+    enumerable: true,
+    get: function get() {
+        return _interopRequireDefault(_Fragment).default;
     }
 });
 

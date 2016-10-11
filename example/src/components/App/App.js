@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from '../../logo.svg';
 import './App.css';
 
 import { Link, RouterProvider, Fragment } from '../../../../dist';
@@ -7,21 +6,25 @@ import { Link, RouterProvider, Fragment } from '../../../../dist';
 import DevTools from '../DevTools';
 const routes = [
     {
-        id: 'main',
+        id: 'Main',
         pattern: '/main/',
         data: {
             pageTitle: 'test'
         },
         routes: [
             {
-                id: 'user',
+                id: 'User',
                 pattern: '/user'
+            },
+            {
+                id: 'default',
+                pattern: '*'
             }
         ]
     },
     {
-        id: 'test',
-        pattern: '/test/'
+        id: 'Settings',
+        pattern: '/application/settings/'
     }
 ];
 
@@ -29,23 +32,33 @@ class App extends Component {
   render() {
     return (
     <RouterProvider routes={routes} slice="router" immutable>
-        <div className="App">
+        <div className="App container">
             <DevTools supportImmutable />
 
-            <Link to="/test">Test Page</Link>
-            <Link to="/main">Main page</Link>
-            <Link to="/main/user">User page</Link>
+            <div className="app__navigation">
+                <Link to="/main">Main</Link>
+                <Link to="/main/splat">Default</Link>
+                <Link to="/main/another_splat">Another default</Link>
+                <Link to={{ pathname: '/main/user', query: { userId: 1 } }}>User</Link>
+                <Link go={{ id: 'Settings' }}>Settings</Link>
 
-            <Fragment id="main">
-                Main
-                <Fragment id="user">
-                    User
+            </div>
+
+            <div className="app__content">
+                <Fragment id="Main">
+                    <h2>Main</h2>
+                    <Fragment id="User">
+                        User content
+                    </Fragment>
+                    <Fragment id="default">
+                        Default
+                    </Fragment>
                 </Fragment>
-            </Fragment>
 
-            <Fragment id="test">
-                Test
-            </Fragment>
+                <Fragment id="Settings">
+                    <h2>Settings</h2>
+                </Fragment>
+            </div>
           </div>
       </RouterProvider>
     );
