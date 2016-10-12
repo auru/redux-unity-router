@@ -2,33 +2,12 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { combineReducers } from 'redux-immutable';
 import { fromJS } from 'immutable';
 
-import createHistory from 'history/createBrowserHistory'
-const history = createHistory();
-const routes = [
-    {
-        id: 'Main',
-        pattern: '/main/',
-        data: {
-            pageTitle: 'test'
-        },
-        routes: [
-            {
-                id: 'User',
-                pattern: '/user'
-            },
-            {
-                id: 'default',
-                pattern: '*'
-            }
-        ]
-    },
-    {
-        id: 'Settings',
-        pattern: '/application/settings/'
-    }
-];
+import routes from '../routes';
 
-import { createRouter, Link } from '../../../dist';
+import { createRouter, History } from '../../../dist';
+
+const history = History.createBrowserHistory();
+
 import DevTools from '../components/DevTools';
 
 const slice = 'router';
@@ -47,14 +26,3 @@ const reducers = combineReducers({
 const store = createStore(reducers, fromJS({}), enhancer);
 
 export default store;
-
-
-/////////////// DEBUG ///////////////////
-
-import * as routerActions from '../../../dist/action-creators.js';
-
-window.app = {
-    history: history,
-    dispatch: store.dispatch,
-    actions: routerActions
-};

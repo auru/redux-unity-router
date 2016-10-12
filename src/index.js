@@ -1,15 +1,15 @@
 import { createBrowserHistory, createHashHistory, createMemoryHistory } from 'history';
-import * as actionCreators from './action-creators';
+
 
 export const History = {
     createBrowserHistory,
     createHashHistory,
     createMemoryHistory
 };
-export const actions = actionCreators;
-export { ACTION_TYPES } from './constants';
-export { ACTION_TYPES as actionTypes } from './constants';
+
+export { default as ACTION_TYPES } from './actionTypes';
+export { default as actionTypes } from './actionTypes';
 export { default as createRouter } from './router';
-export { default as Link } from './components/Link';
-export { default as RouterProvider } from './components/Provider';
-export { default as Fragment } from './components/Fragment';
+export { Link } from './components';
+export { RouterProvider } from './components';
+export { Fragment } from './components';

@@ -1,4 +1,4 @@
-import React, { Children, Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 class Fragment extends Component {
 
@@ -22,7 +22,7 @@ class Fragment extends Component {
     }
 
     isSubscribed() {
-        return typeof this.unsubscribe === 'function'
+        return typeof this.unsubscribe === 'function';
     }
 
     getChildContext() {
@@ -40,8 +40,8 @@ class Fragment extends Component {
     componentWillUnmount() {
 
         if (this.unsubscribe) {
-            this.unsubscribe()
-            this.unsubscribe = null
+            this.unsubscribe();
+            this.unsubscribe = null;
         }
     }
 

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { parse, format } from 'url';
-import * as actions from '../action-creators';
+import * as actions from '../actions';
 
 class Link extends Component {
 
