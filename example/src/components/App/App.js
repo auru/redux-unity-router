@@ -3,30 +3,10 @@ import './App.css';
 
 import { Link, RouterProvider, Fragment } from '../../../../dist';
 
+import routes from '../../routes';
+
 import DevTools from '../DevTools';
-const routes = [
-    {
-        id: 'Main',
-        pattern: '/main/',
-        data: {
-            pageTitle: 'test'
-        },
-        routes: [
-            {
-                id: 'User',
-                pattern: '/user'
-            },
-            {
-                id: 'default',
-                pattern: '*'
-            }
-        ]
-    },
-    {
-        id: 'Settings',
-        pattern: '/application/settings/'
-    }
-];
+
 
 const Main = ({children}) => {
     return (

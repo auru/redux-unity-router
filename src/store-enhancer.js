@@ -1,4 +1,4 @@
-import * as actions from './action-creators';
+import * as actions from './actions';
 import { fromJS } from 'immutable';
 
 const createInitialState = ({state, slice, val, immutable}) => {
