@@ -28,6 +28,15 @@ const routes = [
     }
 ];
 
+const Main = ({children}) => {
+    return (
+        <div className="main">
+            <h2>Main</h2>
+            {children}
+        </div>
+    );
+}
+
 class App extends Component {
   render() {
     return (
@@ -45,8 +54,7 @@ class App extends Component {
             </div>
 
             <div className="app__content">
-                <Fragment id="Main">
-                    <h2>Main</h2>
+                <Fragment id="Main" component={Main}>
                     <Fragment id="User">
                         User content
                     </Fragment>

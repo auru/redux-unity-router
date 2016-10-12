@@ -120,7 +120,11 @@ var Fragment = function (_Component) {
 
 
             if (!visible || this.removed) return null; // eslint-disable-line
-            if (ChildComponent) return _react2.default.createElement(ChildComponent, null); // eslint-disable-line
+            if (ChildComponent) return children ? _react2.default.createElement(
+                ChildComponent,
+                null,
+                children
+            ) : _react2.default.createElement(ChildComponent, null); // eslint-disable-line
             if (children) return _react2.default.createElement(
                 'div',
                 null,
@@ -140,7 +144,7 @@ Fragment.contextTypes = {
 Fragment.propTypes = {
     id: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number]),
     children: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.string, _react.PropTypes.array]),
-    component: _react.PropTypes.object
+    component: _react.PropTypes.func
 };
 
 Fragment.childContextTypes = {

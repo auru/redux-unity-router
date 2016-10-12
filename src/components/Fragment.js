@@ -81,7 +81,7 @@ class Fragment extends Component {
         const { children, component: ChildComponent} = this.props;
 
         if (!visible || this.removed) return null; // eslint-disable-line
-        if (ChildComponent) return <ChildComponent />; // eslint-disable-line
+        if (ChildComponent) return children ? <ChildComponent>{children}</ChildComponent> : <ChildComponent />; // eslint-disable-line
         if (children) return <div>{children}</div>; // eslint-disable-line
     }
 }
@@ -101,7 +101,7 @@ Fragment.propTypes = {
         PropTypes.string,
         PropTypes.array
     ]),
-    component: PropTypes.object
+    component: PropTypes.func
 };
 
 Fragment.childContextTypes = {
