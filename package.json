@@ -1,20 +1,21 @@
 {
   "name": "redux-tiny-router",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "redux router that syncs history with store",
   "main": "dist/index.js",
   "scripts": {
-    "build": "npm run test && npm run build-all",
+    "build-package": "npm run test && npm run build-all",
     "build-all": "npm run clean && npm run build-dist && npm run build-umd && npm run build-umd-min",
     "build-dist": "./node_modules/.bin/babel src --out-dir dist -s",
     "build-dist-watch": "./node_modules/.bin/babel src --out-dir dist -s -w",
+    "build-examples": "(cd examples && npm i && npm start)",
     "build-umd": "./node_modules/.bin/webpack --bail --config config/webpack/umd.js",
     "build-umd-min": "./node_modules/.bin/webpack --bail --config config/webpack/umd.min.js",
     "clean": "./node_modules/.bin/rimraf dist umd",
     "lint": "./node_modules/.bin/eslint --ignore-path=.gitignore --fix ./src",
     "lint-prod": "NODE_ENV='production' npm run lint",
     "precommit-msg": "echo 'Running pre-commit checks...' && exit 0",
-    "prepublish": "npm run build",
+    "prepublish": "build-package",
     "test": "npm run lint-prod && ./node_modules/.bin/ava --verbose",
     "test-watch": "npm run lint && ./node_modules/.bin/ava --verbose --watch"
   },
@@ -31,7 +32,10 @@
     "history"
   ],
   "author": "Vitaliy Blinovskov (blinovskov@yandex-team.ru)",
-  "license": "ISC",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
   "peerDependencies": {
     "immutable": "^3.8.1",
     "react": "^15.3.2"
