@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { parse, format } from 'url';
+import { stringify as qsStringify } from 'query-string';
 import * as actions from '../actions';
 
 class Link extends Component {
@@ -46,6 +47,8 @@ class Link extends Component {
 
         if (target) return;
 
+        if (this.href.protocol) return;
+
         e.preventDefault();
 
         return this.locationChange(this.href);
@@ -53,7 +56,7 @@ class Link extends Component {
 
     shouldComponentUpdate(props, state) {
 
-        return this.state.isActive !== state.isActive && this.props.to !== props.to;
+        return this.state.isActive !== state.isActive || this.props.to !== props.to || this.props.go !== props.go;
     }
 
     checkActive() {
@@ -72,9 +75,16 @@ class Link extends Component {
 
         const { method } = this.props;
 
-        if (typeof to === 'string') to = parse(to);
+        let search = to.query || to.search;
+        search = typeof search === 'object' ? qsStringify(search) : search;
 
-        this.store.dispatch(actions[method](to));
+        const payload = {
+            pathname: to.pathname,
+            search: search,
+            hash: to.hash
+        };
+
+        this.store.dispatch(actions[method](payload));
     }
 
     render() {
