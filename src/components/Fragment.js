@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { DEFAULT_SLICE } from '../constants';
 
 class Fragment extends Component {
 
@@ -49,7 +50,7 @@ class Fragment extends Component {
 
         if (!this.isSubscribed) return;
 
-        let { slice = 'router', immutable } = this.router;
+        let { slice = DEFAULT_SLICE, immutable } = this.router;
         let current = this.current;
 
         const state = this.store.getState();

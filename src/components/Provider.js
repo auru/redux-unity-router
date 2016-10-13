@@ -1,5 +1,6 @@
 import { Children, Component, PropTypes } from 'react';
 import createRouteToLocationParser from '../parsers/routeToLocation';
+import { DEFAULT_SLICE } from '../constants';
 
 class Provider extends Component {
     getChildContext() {
@@ -23,7 +24,7 @@ class Provider extends Component {
 
 Provider.defaultProps = {
     immutable: false,
-    slice: 'router',
+    slice: DEFAULT_SLICE,
     routes: [],
     current: ''
 };

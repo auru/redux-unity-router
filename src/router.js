@@ -4,11 +4,12 @@ import middleware from './middleware';
 
 import createLocationParser from './parsers/locationToState';
 import createRouteParser from './parsers/routeToLocation';
+import { DEFAULT_SLICE } from './constants';
 
 const createRouter = ({
     history,
     routes,
-    slice = 'router',
+    slice = DEFAULT_SLICE,
     immutable = false
 }) => {
     const locationParser = createLocationParser(routes);
