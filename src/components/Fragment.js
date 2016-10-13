@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { DEFAULT_SLICE, ID_DELIM } from '../constants';
+import { push as actionPush } from '../actions';
 
 class Fragment extends Component {
 
@@ -34,8 +35,11 @@ class Fragment extends Component {
     }
 
     componentWillMount() {
-
-        this.handleChange();
+        const { redirect, push } = this.props;
+        if (redirect) {
+            return this.store.dispatch(push(redirect));
+        }
+        return this.handleChange();
     }
 
     componentWillUnmount() {
@@ -79,9 +83,9 @@ class Fragment extends Component {
     render() {
 
         const { visible } = this.state;
-        const { children, component: ChildComponent} = this.props;
+        const { children, redirect, component: ChildComponent} = this.props;
 
-        if (!visible || this.removed) return null; // eslint-disable-line
+        if (!visible || redirect || this.removed) return null; // eslint-disable-line
         if (ChildComponent) return children ? <ChildComponent>{children}</ChildComponent> : <ChildComponent />; // eslint-disable-line
         if (children) return <div>{children}</div>; // eslint-disable-line
     }
@@ -90,6 +94,10 @@ class Fragment extends Component {
 Fragment.contextTypes = {
     router: PropTypes.object,
     store: PropTypes.object
+};
+
+Fragment.defaultProps = {
+    push: actionPush
 };
 
 Fragment.propTypes = {
@@ -102,7 +110,12 @@ Fragment.propTypes = {
         PropTypes.string,
         PropTypes.array
     ]),
-    component: PropTypes.func
+    component: PropTypes.func,
+    redirect: PropTypes.oneOfType([
+        PropTypes.object,
+        PropTypes.string
+    ]),
+    push: PropTypes.func.isRequired
 };
 
 Fragment.childContextTypes = {

@@ -31,6 +31,7 @@ class App extends Component {
                 <Link to={{ pathname: '/main/user', query: { userId: 1 }, hash: 'title' }}>User</Link>
                 <Link to="/main/user?userId=2#title">User 2</Link>
                 <Link go={{ id: 'Settings' }}>Settings</Link>
+                <Link to="/redirect">Redirect</Link>
                 <Link to="https://ya.ru" target="_blank">External</Link>
             </div>
 
@@ -43,9 +44,15 @@ class App extends Component {
                         Default
                     </Fragment>
                 </Fragment>
-
                 <Fragment id="Settings">
                     <h2>Settings</h2>
+                </Fragment>
+                <Fragment id="Redirect" redirect={{ pathname: '/redirected'}}>
+                    <h2>You won't see this</h2>
+                </Fragment>
+                <Fragment id="Redirected">
+                    <h2>Redirected</h2>
+                    You've been redirected here
                 </Fragment>
             </div>
           </div>
