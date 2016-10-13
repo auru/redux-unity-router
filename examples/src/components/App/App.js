@@ -15,7 +15,7 @@ const Main = ({children}) => {
             {children}
         </div>
     );
-}
+};
 
 class App extends Component {
   render() {
@@ -28,9 +28,10 @@ class App extends Component {
                 <Link to="/main">Main</Link>
                 <Link to="/main/splat">Default</Link>
                 <Link to="/main/another_splat">Another default</Link>
-                <Link to={{ pathname: '/main/user', query: { userId: 1 } }}>User</Link>
+                <Link to={{ pathname: '/main/user', query: { userId: 1 }, hash: 'title' }}>User</Link>
+                <Link to="/main/user?userId=2#title">User 2</Link>
                 <Link go={{ id: 'Settings' }}>Settings</Link>
-
+                <Link to="https://ya.ru" target="_blank">External</Link>
             </div>
 
             <div className="app__content">
