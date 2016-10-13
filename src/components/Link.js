@@ -41,13 +41,9 @@ class Link extends Component {
 
     handleClick(e) {
 
-        const { onClick, target } = this.props;
+        const { onClick } = this.props;
 
         if (onClick) onClick(e);
-
-        if (target) return;
-
-        if (this.href.protocol) return;
 
         e.preventDefault();
 
@@ -89,19 +85,20 @@ class Link extends Component {
 
     render() {
 
-        const { children, activeClass, className } = this.props;
+        const { children, activeClass, className, target } = this.props;
         const classes = this.state.isActive ? activeClass + className : className;
-        let href = this.href;
 
-        return (
-            <a
-                href={format(href)}
-                className={classes}
-                onClick={this.handleClick}
-            >
-                {children}
-            </a>
-        );
+        const props = {
+            target,
+            href: format(this.href),
+            className: classes
+        };
+
+        if (!target && !this.href.protocol) {
+            props.onClick = this.handleClick;
+        }
+
+        return React.createElement('a', props, children);
     }
 }
 
