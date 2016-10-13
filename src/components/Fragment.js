@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { DEFAULT_SLICE, ID_DELIM } from '../constants';
 
 class Fragment extends Component {
 
@@ -11,7 +12,7 @@ class Fragment extends Component {
 
         this.store = store;
         this.router = router;
-        this.current = router.current ? `${router.current}:${id}` : id;
+        this.current = router.current ? `${router.current}${ID_DELIM}${id}` : id;
         this.handleChange = this.handleChange.bind(this);
 
         this.state = {
@@ -49,7 +50,7 @@ class Fragment extends Component {
 
         if (!this.isSubscribed) return;
 
-        let { slice = 'router', immutable } = this.router;
+        let { slice = DEFAULT_SLICE, immutable } = this.router;
         let current = this.current;
 
         const state = this.store.getState();
@@ -60,7 +61,7 @@ class Fragment extends Component {
 
         if (routerStore) {
             const idPath = immutable ? routerStore.getIn([ 'route', 'idPath' ]) : routerStore.route.idPath;
-            const match = (`${idPath}:`).indexOf(`${current}:`);
+            const match = (`${idPath}${ID_DELIM}`).indexOf(`${current}${ID_DELIM}`);
 
             if (match === 0 && !this.state.visible) {
                 this.setState({
