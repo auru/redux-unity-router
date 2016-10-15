@@ -13,7 +13,7 @@ export const flattenRoutes = (routes, parentRoutePath = '', parentIdPath = '') =
 
         if (typeof pattern === 'string') pattern = { path: pattern };
 
-        let { path } = pattern;
+        let { path = '' } = pattern;
 
         path = pathJoin(parentRoutePath, path);
 

@@ -1,26 +1,20 @@
-import React, { Component, PropTypes } from 'react';
-import { DEFAULT_SLICE, ID_DELIM, __DEV__} from '../constants';
+import React, { PropTypes } from 'react';
+import BaseRouterComponent from './Base';
+import { ID_DELIM, __DEV__} from '../constants';
 import { push as actionPush } from '../actions';
 
-class Fragment extends Component {
+class Fragment extends BaseRouterComponent {
 
-    constructor(props, state) {
+    constructor(props, context) {
 
-        super(props, state);
+        super(props, context);
 
-        const { store, router } = this.context;
         const { id } = this.props;
-
-        this.store = store;
-        this.router = router;
-        this.current = router.current ? router.current + ID_DELIM + id : id;
-        this.handleChange = this.handleChange.bind(this);
+        this.current = this.router.current ? this.router.current + ID_DELIM + id : id;
 
         this.state = {
             visible: false
         };
-
-        this.unsubscribe = store.subscribe(this.handleChange);
     }
 
     getChildContext() {
@@ -30,31 +24,12 @@ class Fragment extends Component {
         return { router: { ...router, current: this.current } };
     }
 
-    componentWillMount() {
-
-        return this.handleChange();
-    }
-
-    componentWillUnmount() {
-
-        if (this.isSubscribed) {
-            this.unsubscribe();
-            this.unsubscribe = null;
-        }
-    }
-
-    get isSubscribed() {
-
-        return typeof this.unsubscribe === 'function';
-    }
-
-    handleChange() {
+    handleStoreChange() {
 
         if (!this.isSubscribed) return;
 
-        const { slice = DEFAULT_SLICE, immutable, parseRoute} = this.router;
-        const state = this.store.getState();
-        const routerStore = immutable ? state.get(slice) : state[slice];
+        const routerStore = this.getStatefromStore();
+        const { immutable, parseRoute } = this.router;
         const { redirect, push } = this.props;
         const current = this.current;
 
@@ -86,7 +61,6 @@ class Fragment extends Component {
                 });
             }
         }
-
     }
 
     render() {
