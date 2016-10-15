@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { parse, format } from 'url';
 import { stringify as qsStringify } from 'query-string';
 import * as actions from '../actions';
+import { __DEV__ } from '../constants';
 
 class Link extends Component {
 
@@ -22,21 +23,9 @@ class Link extends Component {
         this.href = typeof href === 'string' ? parse(href) : href;
     }
 
-    getHref() {
+    shouldComponentUpdate(props, state) {
 
-        const { to, go = {} } = this.props;
-
-        if (to) {
-            return to;
-        } else if (go) {
-            if (typeof go === 'string') {
-                return this.router.parseRoute({ id: go });
-            } else {
-                return this.router.parseRoute({ ...go });
-            }
-        }
-
-        return false;
+        return this.state.isActive !== state.isActive || this.props.to !== props.to;
     }
 
     handleClick(e) {
@@ -50,22 +39,33 @@ class Link extends Component {
         return this.locationChange(this.href);
     }
 
-    shouldComponentUpdate(props, state) {
+    getHref() {
 
-        return this.state.isActive !== state.isActive || this.props.to !== props.to || this.props.go !== props.go;
-    }
+        const { to } = this.props;
 
-    checkActive() {
-
-        const { to, path } = this.props;
-        const isActive = path.indexOf(to) !== 0;
-
-        if (isActive !== this.state.isActive) {
-            this.setState({
-                isActive
-            });
+        switch (typeof to) {
+        case 'string':
+            return to;
+        case 'object':
+            return to.id
+                    ? this.router.parseRoute(to)
+                    : to;
+        default:
+            return false;
         }
     }
+
+    // checkActive() {
+    //
+    //     const { to } = this.props;
+    //     const isActive = path.indexOf(to) !== 0;
+    //
+    //     if (isActive !== this.state.isActive) {
+    //         this.setState({
+    //             isActive
+    //         });
+    //     }
+    // }
 
     locationChange(to) {
 
@@ -102,21 +102,9 @@ class Link extends Component {
     }
 }
 
-Link.propTypes = {
-    to: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.object
-    ]),
-    go: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.object
-    ]),
-    params: PropTypes.object,
-    activeClass: PropTypes.string,
-    onClick: PropTypes.func,
-    target: PropTypes.string,
-    className: PropTypes.string,
-    method: PropTypes.string
+Link.contextTypes = {
+    router: PropTypes.object,
+    store: PropTypes.object
 };
 
 Link.defaultProps = {
@@ -125,9 +113,24 @@ Link.defaultProps = {
     method: 'push'
 };
 
-Link.contextTypes = {
-    router: PropTypes.object,
-    store: PropTypes.object
-};
+if (__DEV__) {
+    Link.propTypes = {
+        to: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.object
+        ]),
+        params: PropTypes.object,
+        activeClass: PropTypes.string,
+        onClick: PropTypes.func,
+        target: PropTypes.string,
+        className: PropTypes.string,
+        method: PropTypes.string,
+        children: PropTypes.oneOfType([
+            PropTypes.element,
+            PropTypes.arrayOf(PropTypes.element),
+            PropTypes.string
+        ])
+    };
+}
 
 export default Link;

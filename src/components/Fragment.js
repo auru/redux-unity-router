@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { DEFAULT_SLICE, ID_DELIM } from '../constants';
+import { DEFAULT_SLICE, ID_DELIM, __DEV__} from '../constants';
+import { push as actionPush } from '../actions';
 
 class Fragment extends Component {
 
@@ -12,7 +13,7 @@ class Fragment extends Component {
 
         this.store = store;
         this.router = router;
-        this.current = router.current ? `${router.current}${ID_DELIM}${id}` : id;
+        this.current = router.current ? router.current + ID_DELIM + id : id;
         this.handleChange = this.handleChange.bind(this);
 
         this.state = {
@@ -22,53 +23,65 @@ class Fragment extends Component {
         this.unsubscribe = store.subscribe(this.handleChange);
     }
 
-    isSubscribed() {
-        return typeof this.unsubscribe === 'function';
-    }
-
     getChildContext() {
 
-        let { router } = this.context;
+        const { router } = this.context;
 
         return { router: { ...router, current: this.current } };
     }
 
     componentWillMount() {
 
-        this.handleChange();
+        return this.handleChange();
     }
 
     componentWillUnmount() {
 
-        if (this.unsubscribe) {
+        if (this.isSubscribed) {
             this.unsubscribe();
             this.unsubscribe = null;
         }
+    }
+
+    get isSubscribed() {
+
+        return typeof this.unsubscribe === 'function';
     }
 
     handleChange() {
 
         if (!this.isSubscribed) return;
 
-        let { slice = DEFAULT_SLICE, immutable } = this.router;
-        let current = this.current;
-
+        const { slice = DEFAULT_SLICE, immutable, parseRoute} = this.router;
         const state = this.store.getState();
-        const { id } = this.props;
         const routerStore = immutable ? state.get(slice) : state[slice];
-
-        current = current ? current : id;
+        const { redirect, push } = this.props;
+        const current = this.current;
 
         if (routerStore) {
             const idPath = immutable ? routerStore.getIn([ 'route', 'idPath' ]) : routerStore.route.idPath;
-            const match = (`${idPath}${ID_DELIM}`).indexOf(`${current}${ID_DELIM}`);
+            const routePath = idPath + ID_DELIM;
+            const fragmentPath = current + ID_DELIM;
+            const match = (routePath).indexOf(fragmentPath);
+            const matchExact = routePath === fragmentPath;
+
+            if (matchExact && redirect) {
+                return this.store.dispatch(push(
+                    typeof redirect === 'object' && redirect.id
+                        ? parseRoute(redirect)
+                        : redirect
+                ));
+            }
 
             if (match === 0 && !this.state.visible) {
-                this.setState({
+                return this.setState({
+                    matchExact,
                     visible: true
                 });
-            } else if (match !== 0 && this.state.visible && !this.removed) {
-                this.setState({
+            }
+            if (match !== 0 && this.state.visible) {
+                return this.setState({
+                    matchExact,
                     visible: false
                 });
             }
@@ -78,10 +91,10 @@ class Fragment extends Component {
 
     render() {
 
-        const { visible } = this.state;
+        const { visible, matchExact, redirect } = this.state;
         const { children, component: ChildComponent} = this.props;
 
-        if (!visible || this.removed) return null; // eslint-disable-line
+        if (!visible || (matchExact && redirect)) return null; // eslint-disable-line
         if (ChildComponent) return children ? <ChildComponent>{children}</ChildComponent> : <ChildComponent />; // eslint-disable-line
         if (children) return <div>{children}</div>; // eslint-disable-line
     }
@@ -92,19 +105,6 @@ Fragment.contextTypes = {
     store: PropTypes.object
 };
 
-Fragment.propTypes = {
-    id: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-    ]),
-    children: PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.string,
-        PropTypes.array
-    ]),
-    component: PropTypes.func
-};
-
 Fragment.childContextTypes = {
     router: PropTypes.shape({
         slice: PropTypes.string,
@@ -113,5 +113,29 @@ Fragment.childContextTypes = {
     }).isRequired,
     store: PropTypes.object
 };
+
+Fragment.defaultProps = {
+    push: actionPush
+};
+
+if (__DEV__) {
+    Fragment.propTypes = {
+        id: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number
+        ]),
+        children: PropTypes.oneOfType([
+            PropTypes.object,
+            PropTypes.string,
+            PropTypes.array
+        ]),
+        component: PropTypes.func,
+        redirect: PropTypes.oneOfType([
+            PropTypes.object,
+            PropTypes.string
+        ]),
+        push: PropTypes.func.isRequired
+    };
+}
 
 export default Fragment;

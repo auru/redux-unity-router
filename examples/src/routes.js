@@ -19,5 +19,15 @@ export default [
     {
         id: 'Settings',
         pattern: '/application/settings/'
+    },
+    {
+        id: 'Redirect',
+        pattern: '/redirect',
+        routes: [
+            {
+                id: 'Redirected',
+                pattern: '/redirected'
+            }
+        ]
     }
 ];
