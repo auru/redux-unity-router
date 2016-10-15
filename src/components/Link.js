@@ -1,26 +1,31 @@
-import React, { Component, PropTypes } from 'react';
-import { parse, format } from 'url';
-import { stringify as qsStringify } from 'query-string';
-import * as actions from '../actions';
-import { __DEV__ } from '../constants';
+import React, { PropTypes } from 'react';
+import BaseRouterComponent from './Base';
 
-class Link extends Component {
+import { parse, format } from 'url';
+import qs from 'query-string';
+import * as actions from '../actions';
+import {
+    __DEV__,
+    LINK_MATCH_EXACT,
+    LINK_MATCH_PARTIAL,
+    LINK_DEFAULT_METHOD,
+    LINK_CLASSNAME,
+    LINK_ACTIVE_CLASSNAME
+} from '../constants';
+
+class Link extends BaseRouterComponent {
 
     constructor(props, context) {
 
         super(props, context);
 
-        const { store, router } = context;
-
         this.handleClick = this.handleClick.bind(this);
-        this.store = store;
-        this.router = router;
+
         this.state = {
             isActive: false
         };
 
-        const href = this.getHref();
-        this.href = typeof href === 'string' ? parse(href) : href;
+        this.href = this.getHref();
     }
 
     shouldComponentUpdate(props, state) {
@@ -32,7 +37,7 @@ class Link extends Component {
 
         const { onClick } = this.props;
 
-        if (onClick) onClick(e);
+        if (typeof onClick === 'function') onClick(e);
 
         e.preventDefault();
 
@@ -40,39 +45,70 @@ class Link extends Component {
     }
 
     getHref() {
+        let { to } = this.props;
 
-        const { to } = this.props;
-
-        switch (typeof to) {
-        case 'string':
-            return to;
-        case 'object':
-            return to.id
-                    ? this.router.parseRoute(to)
-                    : to;
-        default:
-            return false;
+        if (typeof to === 'object' && to.id) {
+            to = this.router.parseRoute(to);
         }
+
+        if (typeof to === 'string') {
+            to = parse(to);
+            to.query = qs.parse(to.query);
+        }
+
+        to.hash = typeof to.hash === 'string' && to.hash[0] !== '#' ? '#' + to.hash : to.hash;
+
+        return to || false;
     }
 
-    // checkActive() {
-    //
-    //     const { to } = this.props;
-    //     const isActive = path.indexOf(to) !== 0;
-    //
-    //     if (isActive !== this.state.isActive) {
-    //         this.setState({
-    //             isActive
-    //         });
-    //     }
-    // }
+    handleStoreChange() {
+
+        if (!this.isSubscribed) return;
+
+        const { activeClass, activeMatch } = this.props;
+        const { pathname, hash, query, protocol } = this.href;
+
+        if (!activeClass || !activeMatch || protocol) return; // eslint-disable-line consistent-return
+
+        const routerStore = this.getStatefromStore();
+        const { immutable } = this.router;
+
+        let isActive = true;
+
+        if (activeMatch === LINK_MATCH_EXACT) {
+            if (hash) {
+                const routHash = ( immutable ? routerStore.get('hash') : routerStore.hash );
+                isActive = isActive && hash === routHash;
+            }
+
+            if (query && Object.keys(query).length) {
+                const routQuery = immutable ? routerStore.get('query').toJS() : routerStore.query;
+                isActive = isActive && Object.keys(query).reduce(
+                        (result, item) => result && query[item] === routQuery[item], true);
+            }
+        }
+
+        const routPathname = ( immutable ? routerStore.get('pathname') : routerStore.pathname );
+
+        isActive = isActive && (
+            activeMatch === LINK_MATCH_EXACT
+                ? pathname === routPathname
+                : routPathname.indexOf(pathname) === 0
+        );
+
+        if (isActive !== this.state.isActive) {
+            this.setState({
+                isActive
+            });
+        }
+    };
 
     locationChange(to) {
 
         const { method } = this.props;
 
         let search = to.query || to.search;
-        search = typeof search === 'object' ? qsStringify(search) : search;
+        search = typeof search === 'object' ? qs.stringify(search) : search;
 
         const payload = {
             pathname: to.pathname,
@@ -86,7 +122,7 @@ class Link extends Component {
     render() {
 
         const { children, activeClass, className, target } = this.props;
-        const classes = this.state.isActive ? activeClass + className : className;
+        const classes = this.state.isActive ? `${className} ${activeClass}` : className;
 
         const props = {
             target,
@@ -109,8 +145,10 @@ Link.contextTypes = {
 
 Link.defaultProps = {
     to: '',
-    activeClass: '',
-    method: 'push'
+    className: LINK_CLASSNAME,
+    activeClass: LINK_ACTIVE_CLASSNAME,
+    method: LINK_DEFAULT_METHOD,
+    activeMatch: false
 };
 
 if (__DEV__) {
@@ -119,17 +157,17 @@ if (__DEV__) {
             PropTypes.string,
             PropTypes.object
         ]),
-        params: PropTypes.object,
+        className: PropTypes.string,
         activeClass: PropTypes.string,
         onClick: PropTypes.func,
         target: PropTypes.string,
-        className: PropTypes.string,
         method: PropTypes.string,
         children: PropTypes.oneOfType([
             PropTypes.element,
             PropTypes.arrayOf(PropTypes.element),
             PropTypes.string
-        ])
+        ]),
+        activeMatch: PropTypes.oneOf([false, LINK_MATCH_EXACT, LINK_MATCH_PARTIAL])
     };
 }
 

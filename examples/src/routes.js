@@ -8,7 +8,17 @@ export default [
         routes: [
             {
                 id: 'User',
-                pattern: '/user'
+                pattern: '/user',
+                routes: [
+                    {
+                        id: 'UserEdit',
+                        pattern: {
+                            query: {
+                                edit: true
+                            }
+                        }
+                    }
+                ]
             },
             {
                 id: 'default',

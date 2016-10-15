@@ -1,6 +1,5 @@
 .App
 {
-    padding: 20px;
     display: flex;
 }
 
@@ -20,4 +19,10 @@
 .app__content h2
 {
     margin-top: 0;
+}
+
+
+.link__active
+{
+    font-weight: bold;
 }

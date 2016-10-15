@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import { Link, RouterProvider, Fragment } from '../../../../dist';
+import { LINK_MATCH_PARTIAL, LINK_MATCH_EXACT } from '../../../../dist/constants';
 
 import routes from '../../routes';
 
@@ -25,13 +26,13 @@ class App extends Component {
             <DevTools supportImmutable />
 
             <div className="app__navigation">
-                <Link to="/main">Main</Link>
+                <Link to="/main" activeMatch={LINK_MATCH_EXACT}>Main</Link>
                 <Link to="/main/splat">Default</Link>
                 <Link to="/main/another_splat">Another default</Link>
-                <Link to={{ pathname: '/main/user', query: { userId: 1 }, hash: 'title' }}>User</Link>
-                <Link to="/main/user?userId=2#title">User 2</Link>
-                <Link to={{ id: 'Settings' }}>Settings</Link>
-                <Link to="/redirect">Redirect</Link>
+                <Link to={{ pathname: '/main/user', query: { userId: 1, edit: false }, hash: 'title' }}>User</Link>
+                <Link to="/main/user?edit=true&userId=2#title" activeMatch={LINK_MATCH_EXACT}>User 2</Link>
+                <Link to={{ id: 'Settings' }} activeMatch={LINK_MATCH_EXACT}>Settings</Link>
+                <Link to="/redirect" activeMatch={LINK_MATCH_PARTIAL}>Redirect</Link>
                 <Link to="https://ya.ru" target="_blank">External</Link>
             </div>
 
@@ -39,6 +40,9 @@ class App extends Component {
                 <Fragment id="Main" component={Main}>
                     <Fragment id="User">
                         User content
+                        <Fragment id="UserEdit">
+                            Edit form
+                        </Fragment>
                     </Fragment>
                     <Fragment id="default">
                         Default
@@ -47,7 +51,7 @@ class App extends Component {
                 <Fragment id="Settings">
                     <h2>Settings</h2>
                 </Fragment>
-                <Fragment id="Redirect" redirect={{ id: 'Redirected'}}>
+                <Fragment id="Redirect" redirect={{ id: 'Redirected' }}>
                     <Fragment id="Redirected">
                         <h2>Redirected</h2>
                         You've been redirected here

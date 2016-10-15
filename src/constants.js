@@ -24,3 +24,9 @@ export const __PROD__ = !__DEV__;
 export const ID_DELIM = ':';
 
 export const DEFAULT_SLICE = 'router';
+
+export const LINK_MATCH_EXACT = 'exact';
+export const LINK_MATCH_PARTIAL = 'partial';
+export const LINK_CLASSNAME = 'link';
+export const LINK_DEFAULT_METHOD = 'push';
+export const LINK_ACTIVE_CLASSNAME = 'link__active';
