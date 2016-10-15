@@ -13,7 +13,7 @@ class Fragment extends Component {
 
         this.store = store;
         this.router = router;
-        this.current = router.current ? `${router.current}${ID_DELIM}${id}` : id;
+        this.current = router.current ? router.current + ID_DELIM + id : id;
         this.handleChange = this.handleChange.bind(this);
 
         this.state = {
@@ -24,21 +24,19 @@ class Fragment extends Component {
     }
 
     get isSubscribed() {
+
         return typeof this.unsubscribe === 'function';
     }
 
     getChildContext() {
 
-        let { router } = this.context;
+        const { router } = this.context;
 
         return { router: { ...router, current: this.current } };
     }
 
     componentWillMount() {
-        const { redirect, push } = this.props;
-        if (redirect) {
-            return this.store.dispatch(push(redirect));
-        }
+
         return this.handleChange();
     }
 
@@ -54,25 +52,35 @@ class Fragment extends Component {
 
         if (!this.isSubscribed) return;
 
-        let { slice = DEFAULT_SLICE, immutable } = this.router;
-        let current = this.current;
-
+        const { slice = DEFAULT_SLICE, immutable, parseRoute} = this.router;
         const state = this.store.getState();
-        const { id } = this.props;
         const routerStore = immutable ? state.get(slice) : state[slice];
-
-        current = current ? current : id;
+        const { redirect, push } = this.props;
+        const current = this.current;
 
         if (routerStore) {
             const idPath = immutable ? routerStore.getIn([ 'route', 'idPath' ]) : routerStore.route.idPath;
-            const match = (`${idPath}${ID_DELIM}`).indexOf(`${current}${ID_DELIM}`);
+            const routePath = idPath + ID_DELIM;
+            const fragmentPath = current + ID_DELIM;
+            const match = (routePath).indexOf(fragmentPath);
+            const matchExact = routePath === fragmentPath;
+
+            if (matchExact && redirect) {
+                return this.store.dispatch(push(
+                    typeof redirect === 'object' && redirect.id
+                        ? parseRoute(redirect)
+                        : redirect
+                ));
+            }
 
             if (match === 0 && !this.state.visible) {
                 this.setState({
+                    matchExact,
                     visible: true
                 });
-            } else if (match !== 0 && this.state.visible && !this.removed) {
+            } else if (match !== 0 && this.state.visible) {
                 this.setState({
+                    matchExact,
                     visible: false
                 });
             }
@@ -82,10 +90,10 @@ class Fragment extends Component {
 
     render() {
 
-        const { visible } = this.state;
-        const { children, redirect, component: ChildComponent} = this.props;
+        const { visible, matchExact, redirect } = this.state;
+        const { children, component: ChildComponent} = this.props;
 
-        if (!visible || redirect || this.removed) return null; // eslint-disable-line
+        if (!visible || (matchExact && redirect)) return null; // eslint-disable-line
         if (ChildComponent) return children ? <ChildComponent>{children}</ChildComponent> : <ChildComponent />; // eslint-disable-line
         if (children) return <div>{children}</div>; // eslint-disable-line
     }

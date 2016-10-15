@@ -47,12 +47,11 @@ class App extends Component {
                 <Fragment id="Settings">
                     <h2>Settings</h2>
                 </Fragment>
-                <Fragment id="Redirect" redirect={{ pathname: '/redirected'}}>
-                    <h2>You won't see this</h2>
-                </Fragment>
-                <Fragment id="Redirected">
-                    <h2>Redirected</h2>
-                    You've been redirected here
+                <Fragment id="Redirect" redirect={{ id: 'Redirected'}}>
+                    <Fragment id="Redirected">
+                        <h2>Redirected</h2>
+                        You've been redirected here
+                    </Fragment>
                 </Fragment>
             </div>
           </div>

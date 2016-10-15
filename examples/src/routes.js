@@ -23,9 +23,11 @@ export default [
     {
         id: 'Redirect',
         pattern: '/redirect',
-    },
-    {
-        id: 'Redirected',
-        pattern: '/redirected'
-    },
+        routes: [
+            {
+                id: 'Redirected',
+                pattern: '/redirected'
+            }
+        ]
+    }
 ];
