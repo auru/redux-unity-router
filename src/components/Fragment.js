@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { DEFAULT_SLICE, ID_DELIM } from '../constants';
+import { DEFAULT_SLICE, ID_DELIM, __DEV__} from '../constants';
 import { push as actionPush } from '../actions';
 
 class Fragment extends Component {
@@ -23,11 +23,6 @@ class Fragment extends Component {
         this.unsubscribe = store.subscribe(this.handleChange);
     }
 
-    get isSubscribed() {
-
-        return typeof this.unsubscribe === 'function';
-    }
-
     getChildContext() {
 
         const { router } = this.context;
@@ -42,10 +37,15 @@ class Fragment extends Component {
 
     componentWillUnmount() {
 
-        if (this.unsubscribe) {
+        if (this.isSubscribed) {
             this.unsubscribe();
             this.unsubscribe = null;
         }
+    }
+
+    get isSubscribed() {
+
+        return typeof this.unsubscribe === 'function';
     }
 
     handleChange() {
@@ -74,12 +74,13 @@ class Fragment extends Component {
             }
 
             if (match === 0 && !this.state.visible) {
-                this.setState({
+                return this.setState({
                     matchExact,
                     visible: true
                 });
-            } else if (match !== 0 && this.state.visible) {
-                this.setState({
+            }
+            if (match !== 0 && this.state.visible) {
+                return this.setState({
                     matchExact,
                     visible: false
                 });
@@ -104,28 +105,6 @@ Fragment.contextTypes = {
     store: PropTypes.object
 };
 
-Fragment.defaultProps = {
-    push: actionPush
-};
-
-Fragment.propTypes = {
-    id: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-    ]),
-    children: PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.string,
-        PropTypes.array
-    ]),
-    component: PropTypes.func,
-    redirect: PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.string
-    ]),
-    push: PropTypes.func.isRequired
-};
-
 Fragment.childContextTypes = {
     router: PropTypes.shape({
         slice: PropTypes.string,
@@ -134,5 +113,29 @@ Fragment.childContextTypes = {
     }).isRequired,
     store: PropTypes.object
 };
+
+Fragment.defaultProps = {
+    push: actionPush
+};
+
+if (__DEV__) {
+    Fragment.propTypes = {
+        id: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number
+        ]),
+        children: PropTypes.oneOfType([
+            PropTypes.object,
+            PropTypes.string,
+            PropTypes.array
+        ]),
+        component: PropTypes.func,
+        redirect: PropTypes.oneOfType([
+            PropTypes.object,
+            PropTypes.string
+        ]),
+        push: PropTypes.func.isRequired
+    };
+}
 
 export default Fragment;

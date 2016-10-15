@@ -1,6 +1,6 @@
 import { Children, Component, PropTypes } from 'react';
 import createRouteToLocationParser from '../parsers/routeToLocation';
-import { DEFAULT_SLICE } from '../constants';
+import { DEFAULT_SLICE, __DEV__ } from '../constants';
 
 class Provider extends Component {
     getChildContext() {
@@ -22,13 +22,6 @@ class Provider extends Component {
     }
 }
 
-Provider.defaultProps = {
-    immutable: false,
-    slice: DEFAULT_SLICE,
-    routes: [],
-    current: ''
-};
-
 Provider.childContextTypes = {
     router: PropTypes.shape({
         slice: PropTypes.string,
@@ -36,5 +29,26 @@ Provider.childContextTypes = {
         routes: PropTypes.array
     }).isRequired
 };
+
+Provider.defaultProps = {
+    immutable: false,
+    slice: DEFAULT_SLICE,
+    routes: [],
+    current: ''
+};
+
+if (__DEV__) {
+    Provider.propTypes = {
+        immutable: PropTypes.bool.isRequired,
+        slice: PropTypes.string.isRequired,
+        routes: PropTypes.array.isRequired,
+        current: PropTypes.string.isRequired,
+        children: PropTypes.oneOfType([
+            PropTypes.element,
+            PropTypes.arrayOf(PropTypes.element),
+            PropTypes.string
+        ])
+    };
+}
 
 export default Provider;
