@@ -23,7 +23,7 @@ class Fragment extends Component {
         this.unsubscribe = store.subscribe(this.handleChange);
     }
 
-    isSubscribed() {
+    get isSubscribed() {
         return typeof this.unsubscribe === 'function';
     }
 
