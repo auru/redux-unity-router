@@ -24,19 +24,19 @@ class Link extends Component {
 
     getHref() {
 
-        const { to, go = {} } = this.props;
+        const { to } = this.props;
 
-        if (to) {
+        switch (typeof to) {
+        case 'string':
             return to;
-        } else if (go) {
-            if (typeof go === 'string') {
-                return this.router.parseRoute({ id: go });
-            } else {
-                return this.router.parseRoute({ ...go });
-            }
+        case 'object':
+            return to.id
+                    ? this.router.parseRoute(to)
+                    : to;
+        default:
+            return false;
         }
 
-        return false;
     }
 
     handleClick(e) {
@@ -52,7 +52,7 @@ class Link extends Component {
 
     shouldComponentUpdate(props, state) {
 
-        return this.state.isActive !== state.isActive || this.props.to !== props.to || this.props.go !== props.go;
+        return this.state.isActive !== state.isActive || this.props.to !== props.to;
     }
 
     checkActive() {
@@ -104,10 +104,6 @@ class Link extends Component {
 
 Link.propTypes = {
     to: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.object
-    ]),
-    go: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.object
     ]),
