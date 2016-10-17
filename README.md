@@ -77,10 +77,17 @@ It should helps you doing your application so simple and understandable.
 #### `createRouter({ history, routes, immutable, slice })`
 Entry point for your routing. Returns [middleware](http://redux.js.org/docs/advanced/Middleware.html), [enhancer](http://redux.js.org/docs/api/applyMiddleware.html) and [reducer](http://redux.js.org/docs/basics/Reducers.html).
 
-##### `history` {Object} – History object by browser history api.
-##### `routes` {Object} – Plain object with your routes.
-##### `immutable` {Boolean} – By default `false`. If you use immutable-like store set it in `true`.
-##### `slice` {String} – By default `router`. It's a part which router will be contains data.
+##### `history` {Object}
+History object by browser history api.
+
+##### `routes` {Object}
+Plain object with your routes.
+
+##### `immutable` {Boolean}
+By default `false`. If you use immutable-like store set it in `true`.
+
+##### `slice` {String}
+By default `router`. It's a part which router will be contains data.
 
 
 ## Components
