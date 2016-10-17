@@ -110,18 +110,18 @@ Id yours route from routes. On nesting Fragment ID's joining.
 
 ####Example
 ```js
-    <Fragment id="Main">
-        Main component for my application.
+<Fragment id="Main">
+    Main component for my application.
 
-        <Fragment id="News">
-            Component with my news list.
-        </Fragment>
-
-        <Fragment id="Contacts">
-            Component with my contacts.
-        </Fragment>
-
+    <Fragment id="News">
+        Component with my news list.
     </Fragment>
+
+    <Fragment id="Contacts">
+        Component with my contacts.
+    </Fragment>
+
+</Fragment>
 ```
 
 ##### `redirect` {Object}
@@ -129,11 +129,11 @@ Redirecting options.
 
 ####Example
 ```js
-    <Fragment id="Redirect" redirect={{ id: 'Redirected' }}>
-        <Fragment id="Redirected">
-            You have been redirected here.
-        </Fragment>
+<Fragment id="Redirect" redirect={{ id: 'Redirected' }}>
+    <Fragment id="Redirected">
+        You have been redirected here.
     </Fragment>
+</Fragment>
 ```
 
 #### `<Link />`
@@ -144,7 +144,7 @@ support any default `<a>` property
 
 ####Example
 ```js
-    <Link to="/application">Main page</Link>
-    <Link to={{ pathname: '/application/news', query: { id: 'news-id' }, hash: 'comment-box' }}>Main page</Link>
-    <Link to={{ id: 'Settings' }}></Link>
+<Link to="/application">Main page</Link>
+<Link to={{ pathname: '/application/news', query: { id: 'news-id' }, hash: 'comment-box' }}>Main page</Link>
+<Link to={{ id: 'Settings' }}></Link>
 ```
