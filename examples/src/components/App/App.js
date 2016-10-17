@@ -54,7 +54,7 @@ class App extends Component {
                 <Fragment id="Redirect" redirect={{ id: 'Redirected' }}>
                     <Fragment id="Redirected">
                         <h2>Redirected</h2>
-                        You've been redirected here
+                        You have been redirected here
                     </Fragment>
                 </Fragment>
             </div>
