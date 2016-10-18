@@ -7,7 +7,7 @@ Simple routing for your redux application.
 Installing package from npm:
 
 ```bash
-$ npm i redux-tiny-router
+$ npm i redux-unity-router
 ```
 
 Before go to next step, we suggest you make a file with your routes:
@@ -44,7 +44,7 @@ Then require routes list, router and create router and history instance, like th
 ```js
 //store.js
 import routes from 'routes.js';
-import { createRouter, History } from 'redux-tiny-router';
+import { createRouter, History } from 'redux-unity-router';
 
 const history = History.createBrowserHistory();
 const router = createRouter({ history, routes });

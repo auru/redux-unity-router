@@ -3,5 +3,5 @@ module.exports = {
     BUILD_PATH: 'dist',
     BUILD_PATH_UMD: 'umd',
     LIB_NAME: 'ReduxTinyRouter',
-    LIB_FILENAME: 'redux-tiny-router',
+    LIB_FILENAME: 'redux-unity-router',
 };
