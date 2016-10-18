@@ -162,11 +162,7 @@ if (__DEV__) {
         onClick: PropTypes.func,
         target: PropTypes.string,
         method: PropTypes.string,
-        children: PropTypes.oneOfType([
-            PropTypes.element,
-            PropTypes.arrayOf(PropTypes.element),
-            PropTypes.string
-        ]),
+        children: PropTypes.any,
         activeMatch: PropTypes.oneOf([false, LINK_MATCH_EXACT, LINK_MATCH_PARTIAL])
     };
 }
