@@ -36,15 +36,12 @@
     "registry": "https://registry.npmjs.org/"
   },
   "license": "MIT",
-  "peerDependencies": {
-    "immutable": "^3.8.1",
-    "react": "^15.3.2"
-  },
   "dependencies": {
     "history": "^4.3.0",
     "path": "^0.12.7",
     "path-to-regexp": "^1.6.0",
-    "query-string": "^4.2.3"
+    "query-string": "^4.2.3",
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "ava": "^0.16.0",

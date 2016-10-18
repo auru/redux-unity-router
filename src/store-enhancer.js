@@ -1,9 +1,8 @@
 import * as actions from './actions';
-import { fromJS } from 'immutable';
 
 const createInitialState = ({state, slice, val, immutable}) => {
     if (immutable) {
-        state = state.set(slice, fromJS(val));
+        state = state.set(slice, require('immutable').fromJS(val));
     } else {
         state[slice] = val;
     }
