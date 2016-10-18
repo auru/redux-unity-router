@@ -1,4 +1,4 @@
-## Redux Tiny Router
+## Redux Unity Router
 
 Simple routing for your redux application.
 
