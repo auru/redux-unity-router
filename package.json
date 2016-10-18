@@ -1,6 +1,6 @@
 {
   "name": "redux-unity-router",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "redux router that syncs history with store",
   "main": "dist/index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "lint": "./node_modules/.bin/eslint --ignore-path=.gitignore --fix ./src",
     "lint-prod": "NODE_ENV='production' npm run lint",
     "precommit-msg": "echo 'Running pre-commit checks...' && exit 0",
-    "prepublish": "build-package",
+    "prepublish": "npm run build-package",
     "test": "npm run lint-prod && ./node_modules/.bin/ava --verbose",
     "test-watch": "npm run lint && ./node_modules/.bin/ava --verbose --watch"
   },
