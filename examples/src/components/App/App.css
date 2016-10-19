@@ -3,6 +3,10 @@
     display: flex;
 }
 
+.app__navigation
+{
+    flex: 1;
+}
 
 .app__navigation a
 {
@@ -12,6 +16,7 @@
 
 .app__content
 {
+    flex: 9;
     margin: 10px 0;
     padding: 0 30px;
 }
@@ -20,7 +25,6 @@
 {
     margin-top: 0;
 }
-
 
 .link__active
 {

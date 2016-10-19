@@ -27,6 +27,10 @@ export default [
         ]
     },
     {
+        id: 'ScrollToHash',
+        pattern: '/scroll-to-hash'
+    },
+    {
         id: 'Settings',
         pattern: '/application/settings/'
     },
