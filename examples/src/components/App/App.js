@@ -7,7 +7,7 @@ import { LINK_MATCH_PARTIAL, LINK_MATCH_EXACT } from '../../../../dist/constants
 import routes from '../../routes';
 
 import DevTools from '../DevTools';
-
+import Lorem from '../Lorem';
 
 const Main = ({children}) => {
     return (
@@ -31,6 +31,7 @@ class App extends Component {
                 <Link to="/main/another_splat">Another default</Link>
                 <Link to={{ pathname: '/main/user', query: { userId: 1, edit: false }, hash: 'title' }}>User</Link>
                 <Link to="/main/user?edit=true&userId=2#title" activeMatch={LINK_MATCH_EXACT}>User 2</Link>
+                <Link to="/scroll-to-hash#h2">Scroll to hash</Link>
                 <Link to={{ id: 'Settings' }} activeMatch={LINK_MATCH_EXACT}>Settings</Link>
                 <Link to="/redirect" activeMatch={LINK_MATCH_PARTIAL}>Redirect</Link>
                 <Link to="https://ya.ru" target="_blank">External</Link>
@@ -47,6 +48,9 @@ class App extends Component {
                     <Fragment id="default">
                         Default
                     </Fragment>
+                </Fragment>
+                <Fragment id="ScrollToHash">
+                    <Lorem/>
                 </Fragment>
                 <Fragment id="Settings">
                     <h2>Settings</h2>

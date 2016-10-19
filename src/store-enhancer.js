@@ -9,6 +9,17 @@ const createInitialState = ({state, slice, val, immutable}) => {
     return state;
 };
 
+const scrollToHash = hash => {
+    if (hash && window && typeof window.requestAnimationFrame === 'function') {
+        window.requestAnimationFrame(() => {
+            const node = document.getElementById(location.hash.substr(1));
+            if (node) {
+                node.scrollIntoView();
+            }
+        });
+    }
+};
+
 export default ({ history, slice, locationParser, immutable }) => next => (reducer, initialState, enhancer) => {
 
     // boilerplate
@@ -18,13 +29,21 @@ export default ({ history, slice, locationParser, immutable }) => next => (reduc
     }
     let newInitialState = initialState || enhancer;
 
-    newInitialState = createInitialState({ state: newInitialState, val: locationParser(history.location), slice, immutable });
+    const initialLocation = locationParser(history.location);
+
+    scrollToHash(initialLocation.hash);
+
+    newInitialState = createInitialState({ state: newInitialState, val: initialLocation, slice, immutable });
 
     const store = next(reducer, newInitialState, enhancer);
 
-    history.listen(location => (
-        !location.silent && store.dispatch(actions.locationChange(location))
-    ));
+    history.listen(location => {
+        if (location.silent) return;
+
+        store.dispatch(actions.locationChange(location));
+
+        scrollToHash(location.hash);
+    });
 
     return store;
 };
