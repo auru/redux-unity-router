@@ -28,6 +28,13 @@ class Link extends BaseRouterComponent {
         this.href = this.getHref();
     }
 
+    componentWillReceiveProps(newProps) {
+
+        if (this.props.to !== newProps.to) {
+            this.href = this.getHref();
+        }
+    }
+
     shouldComponentUpdate(props, state) {
 
         return this.state.isActive !== state.isActive || this.props.to !== props.to;
