@@ -1,6 +1,6 @@
 {
   "name": "redux-unity-router",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "redux router that syncs history with store",
   "main": "dist/index.js",
   "scripts": {
