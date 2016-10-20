@@ -12,10 +12,6 @@
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
     "redux": "^3.6.0",
-    "redux-devtools": "^3.3.1",
-    "redux-devtools-diff-monitor": "^5.0.5",
-    "redux-devtools-dock-monitor": "^1.1.1",
-    "redux-devtools-inspector": "^0.8.0",
     "redux-immutable": "^3.0.8"
   },
   "scripts": {

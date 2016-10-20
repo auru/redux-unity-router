@@ -6,7 +6,6 @@ import { LINK_MATCH_PARTIAL, LINK_MATCH_EXACT } from '../../../../dist/constants
 
 import routes from '../../routes';
 
-import DevTools from '../DevTools';
 import Lorem from '../Lorem';
 
 const Main = ({children}) => {
@@ -23,7 +22,6 @@ class App extends Component {
     return (
     <RouterProvider routes={routes} slice="router" immutable>
         <div className="App container">
-            <DevTools supportImmutable />
 
             <div className="app__navigation">
                 <Link to="/main" activeMatch={LINK_MATCH_EXACT}>Main</Link>

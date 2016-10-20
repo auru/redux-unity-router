@@ -8,15 +8,13 @@ import { createRouter, History } from '../../../dist';
 
 const history = History.createBrowserHistory();
 
-import DevTools from '../components/DevTools';
-
 const slice = 'router';
 const router = createRouter({ history, routes, slice, immutable: true });
 const middleware = [router.middleware];
 const toEnhance = [
     router.enhancer,
     applyMiddleware(...middleware),
-    DevTools.instrument()
+    window && window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 ];
 const enhancer = compose(...toEnhance);
 const reducers = combineReducers({
