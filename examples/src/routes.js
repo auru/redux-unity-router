@@ -35,6 +35,10 @@ export default [
         pattern: '/application/settings/'
     },
     {
+        id: 'Preferences',
+        pattern: '/prefs/:action'
+    },
+    {
         id: 'Redirect',
         pattern: '/redirect',
         routes: [

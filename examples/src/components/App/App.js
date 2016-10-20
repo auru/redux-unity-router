@@ -33,6 +33,7 @@ class App extends Component {
                 <Link to="/main/user?edit=true&userId=2#title" activeMatch={LINK_MATCH_EXACT}>User 2</Link>
                 <Link to="/scroll-to-hash#h2">Scroll to hash</Link>
                 <Link to={{ id: 'Settings' }} activeMatch={LINK_MATCH_EXACT}>Settings</Link>
+                <Link to={{ id: 'Preferences', params: { action: 'edit' }, query: { edit: true }, hash: 'title' }} activeMatch={LINK_MATCH_EXACT}>Preferences</Link>
                 <Link to="/redirect" activeMatch={LINK_MATCH_PARTIAL}>Redirect</Link>
                 <Link to="https://ya.ru" target="_blank">External</Link>
             </div>
@@ -49,11 +50,12 @@ class App extends Component {
                         Default
                     </Fragment>
                 </Fragment>
-                <Fragment id="ScrollToHash">
-                    <Lorem/>
-                </Fragment>
+                <Fragment id="ScrollToHash" component={Lorem} />
                 <Fragment id="Settings">
                     <h2>Settings</h2>
+                </Fragment>
+                <Fragment id="Preferences">
+                    <h2>Preferences</h2>
                 </Fragment>
                 <Fragment id="Redirect" redirect={{ id: 'Redirected' }}>
                     <Fragment id="Redirected">
