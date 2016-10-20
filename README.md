@@ -1,6 +1,13 @@
 # Redux Unity Router
 
-Simple routing for your redux application.
+> Simple routing for your redux application.
+
+The main purpose of this router is to mirror your browser history to the redux store, 
+while providing means to easily declare your routes.
+
+We also provide React bindings!
+
+[TOC]
 
 ## Installation
 
@@ -10,10 +17,13 @@ Install `redux-unity-router` package from npm:
 npm i --save redux-unity-router
 ```
 
+## Usage
+
 Before proceeding to the next step, we suggest you create a file containing your routes:
 
 ```js
 /* routes.js */
+
 export default {
     id: 'Main',
     pattern: '/application/',
@@ -39,10 +49,11 @@ export default {
 };
 ```
 
-Then require those routes and set up your store like that:
+Then require those routes and set up your store like this:
 
 ```js
 /* store.js */
+
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 
 import routes from './routes.js';
@@ -63,7 +74,7 @@ const toEnhance = [
     applyMiddleware(...middleware)
 ];
 const enhancer = compose(...toEnhance);
-const reducer = combineReducers({
+const reducers = combineReducers({
     router: router.reducer
 });
 
@@ -71,12 +82,10 @@ const store = createStore(reducers, {}, enhancer);
 export default store;
 ```
 
-Now you've got a simple routing system without complicated settings!
+Now you've got yourself a simple routing system!
 
-
-
-You can manage your system by using <RouterProvider />, <Fragment /> and <Link /> components.
-It should helps you doing your application so simple and understandable.
+You can manage your application by using `<RouterProvider />`, `<Fragment />` and `<Link />` React-components.
+It should help you keep your application simple and maintainable.
 
 
 ## API
@@ -85,7 +94,7 @@ It should helps you doing your application so simple and understandable.
 Entry point for your routing. Returns [middleware](http://redux.js.org/docs/advanced/Middleware.html), [enhancer](http://redux.js.org/docs/api/applyMiddleware.html) and [reducer](http://redux.js.org/docs/basics/Reducers.html).
 
 ##### `history` {Object}
-History object by browser history api.
+[Abstraction](https://github.com/mjackson/history) over browser's History api .
 
 ##### `routes` {Object}
 Plain object with your routes.
@@ -95,6 +104,8 @@ By default `false`. If you use immutable-like store set it in `true`.
 
 ##### `slice` {String}
 By default `router`. It's a part which router will be contains data.
+
+
 
 # React bindings
 
@@ -146,7 +157,7 @@ Redirecting options.
 
 #### `<Link />`
 #### Props
-support any default `<a>` property
+Supports any default `<a>` properties
 
 ##### `to` {Object|String}
 
