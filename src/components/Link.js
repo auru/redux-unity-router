@@ -82,25 +82,33 @@ class Link extends BaseRouterComponent {
 
         let isActive = true;
 
+        if (activeMatch instanceof RegExp) {
+            const routePath = ( immutable ? routerStore.get('path') : routerStore.path );
+
+            return this.setState({ // eslint-disable-line consistent-return
+                isActive: activeMatch.test(routePath)
+            });
+        }
+
         if (activeMatch === LINK_MATCH_EXACT) {
             if (hash) {
-                const routHash = ( immutable ? routerStore.get('hash') : routerStore.hash );
-                isActive = isActive && hash === routHash;
+                const routeHash = ( immutable ? routerStore.get('hash') : routerStore.hash );
+                isActive = isActive && hash === routeHash;
             }
 
             if (query && Object.keys(query).length) {
-                const routQuery = immutable ? routerStore.get('query').toJS() : routerStore.query;
+                const routeQuery = immutable ? routerStore.get('query').toJS() : routerStore.query;
                 isActive = isActive && Object.keys(query).reduce(
-                        (result, item) => result && query[item] === routQuery[item], true);
+                        (result, item) => result && query[item] === routeQuery[item], true);
             }
         }
 
-        const routPathname = ( immutable ? routerStore.get('pathname') : routerStore.pathname );
+        const routePathname = ( immutable ? routerStore.get('pathname') : routerStore.pathname );
 
         isActive = isActive && (
             activeMatch === LINK_MATCH_EXACT
-                ? pathname === routPathname
-                : routPathname.indexOf(pathname) === 0
+                ? pathname === routePathname
+                : routePathname.indexOf(pathname) === 0
         );
 
         if (isActive !== this.state.isActive) {
@@ -128,7 +136,7 @@ class Link extends BaseRouterComponent {
 
     render() {
 
-        const { children, activeClass, className, target } = this.props;
+        const { children, activeClass, className, target = null } = this.props;
         const classes = this.state.isActive ? `${className} ${activeClass}` : className;
 
         const props = {
@@ -170,7 +178,18 @@ if (__DEV__) {
         target: PropTypes.string,
         method: PropTypes.string,
         children: PropTypes.any,
-        activeMatch: PropTypes.oneOf([false, LINK_MATCH_EXACT, LINK_MATCH_PARTIAL])
+        activeMatch: (props, propName, componentName) => {
+            if (
+                ![false, LINK_MATCH_EXACT, LINK_MATCH_PARTIAL].includes(props[propName]) &&
+                !(props[propName] instanceof RegExp)
+            ) {
+                return new Error(
+                    'Invalid prop `' + propName + '` supplied to' +
+                    ' `' + componentName + '`. ' +
+                    `Should be one of [false, '${LINK_MATCH_EXACT}', '${LINK_MATCH_PARTIAL}'] or an instance of RegExp`
+                );
+            }
+        }
     };
 }
 

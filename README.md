@@ -362,10 +362,34 @@ Supports all default `<a>` properties.
 * `string` type will be interpreted as **path** or **url** (external urls are supported as well)
 * `object` type can be interpreted 2 ways: if it has property `id`, it will be interpreted as `route` (see [actions.goToRoute](#gotoroutepayload)), otherwise it will be considered as a standard location object (see [actions.push](#pushpayload)).
 
+#### `className` {String} *optional*
+**Default:** `'link'`
+
+`className` for the generated link.
+
+#### `activeClass` {String} *optional*
+**Default:** `'link__active'`
+
+`className` that will be added to the link if it matches current route.
+
+#### `target` {String|Null} *optional*
+**Default:** `null`
+
+Target attribute.
+
+#### `activeMatch` false|'exact'|'partial'|{RegExp} *optional*
+**Default:** `false`
+
+Dictates whether and how `activeClass` should be added to the link.
+* **`false`** - no current route matching at all. This is the default behavior.
+* **`'exact'`** - link will receive its `activeClass` only if its `pathname`, `query` and `hash` match current route's. 
+* **`'partial'`** - link will receive its `activeClass` when current route's `pathname` begins with the `pathname` supplied to link.
+* **`'{RegExp}'`** - if you supply a regular expression, current route's entire `path` will be tested against it.
+
 ### Example
 ```html
-// Navigates to /application
-<Link to="/application">Main page</Link>
+// Navigates to /application 
+<Link to="/application" activeMatch="exact">Main page</Link>
 
 // Navigates to /application/news?id=1#comment-box
 <Link to={{ pathname: '/application/news', query: { id: '1' }, hash: 'comment-box' }}>News</Link>
