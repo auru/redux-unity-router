@@ -1,19 +1,19 @@
-## Redux Unity Router
+# Redux Unity Router
 
 Simple routing for your redux application.
 
-### Installation
+## Installation
 
-Installing package from npm:
+Install `redux-unity-router` package from npm:
 
 ```bash
-$ npm i redux-unity-router
+npm i --save redux-unity-router
 ```
 
-Before go to next step, we suggest you make a file with your routes:
+Before proceeding to the next step, we suggest you create a file containing your routes:
 
 ```js
-//routes.js
+/* routes.js */
 export default {
     id: 'Main',
     pattern: '/application/',
@@ -23,7 +23,7 @@ export default {
     routes: [
         {
             id: 'News',
-            pattern: '/news/'
+            pattern: '/news/',
             routes: [
                 {
                     id: 'Item',
@@ -39,22 +39,25 @@ export default {
 };
 ```
 
-Then require routes list, router and create router and history instance, like that:
+Then require those routes and set up your store like that:
 
 ```js
-//store.js
-import routes from 'routes.js';
+/* store.js */
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+
+import routes from './routes.js';
 import { createRouter, History } from 'redux-unity-router';
 
+// Create History
 const history = History.createBrowserHistory();
+
+// Create router instance
 const router = createRouter({ history, routes });
-```
 
-Enhance your store by using router object
-
-```js
-//store.js
+// Add router middleware to your list of middlewares
 const middleware = [ router.middleware ];
+
+// Enhance your store by using router's enhancer
 const toEnhance = [
     router.enhancer,
     applyMiddleware(...middleware)
@@ -64,10 +67,14 @@ const reducer = combineReducers({
     router: router.reducer
 });
 
-createStore(reducers, {}, enhancer);
+const store = createStore(reducers, {}, enhancer);
+export default store;
 ```
 
-You've got a simple routing without complicated settings.
+Now you've got a simple routing system without complicated settings!
+
+
+
 You can manage your system by using <RouterProvider />, <Fragment /> and <Link /> components.
 It should helps you doing your application so simple and understandable.
 
@@ -89,6 +96,7 @@ By default `false`. If you use immutable-like store set it in `true`.
 ##### `slice` {String}
 By default `router`. It's a part which router will be contains data.
 
+# React bindings
 
 ## Components
 
