@@ -402,7 +402,7 @@ You can pass react component to be used as a direct child of the `<Fragment>`.
     <Fragment id="Gallery" component={Gallery} /> // imported <Gallery> react component
 
     <Fragment id="Contacts">
-       <Fragment id="Map" component={Map}} />  // imported <Map> react component
+       <Fragment id="Map" component={Map} />  // imported <Map> react component
     </Fragment>
  
    <Fragment id="Redirect" redirect={{ id: 'Redirected' }} />
