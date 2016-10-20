@@ -23,7 +23,10 @@ export const initialRoutes = [
                     },
                     {
                         id: 'main+param',
-                        pattern: '/:param'
+                        pattern: '/:param',
+                        data: {
+                            token: 'e287f992d8af8fa21c08'
+                        }
                     }
                 ]
             },
@@ -54,7 +57,9 @@ export const expectedRoutes = [
                 test: 'true'
             }
         },
-        data: {}
+        data: {
+            pageTitle: 'test'
+        }
     },
     {
         id: 'main+param',
@@ -62,7 +67,10 @@ export const expectedRoutes = [
         pattern: {
             path: '/main/:param',
         },
-        data: {}
+        data: {
+            pageTitle: 'test',
+            token: 'e287f992d8af8fa21c08'
+        }
     },
     {
         id: 'main',

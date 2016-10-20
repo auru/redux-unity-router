@@ -3,15 +3,21 @@ export default [
         id: 'Main',
         pattern: '/main/',
         data: {
-            pageTitle: 'test'
+            pageTitle: 'Main page'
         },
         routes: [
             {
                 id: 'User',
                 pattern: '/user',
+                data: {
+                    pageTitle: 'User profile'
+                },
                 routes: [
                     {
                         id: 'UserEdit',
+                        data: {
+                            token: ' e287f992d8af8fa21c08'
+                        },
                         pattern: {
                             query: {
                                 edit: true

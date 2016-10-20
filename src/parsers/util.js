@@ -1,7 +1,7 @@
 import { join as pathJoin } from 'path';
 import { __DEV__, ID_DELIM } from '../constants';
 
-export const flattenRoutes = (routes, parentRoutePath = '', parentIdPath = '') => {
+export const flattenRoutes = (routes, parentRoutePath = '', parentIdPath = '', parentData = {}) => {
 
     let result = [];
 
@@ -21,7 +21,7 @@ export const flattenRoutes = (routes, parentRoutePath = '', parentIdPath = '') =
         const idPath = [parentIdPath, id].filter(item => item !== '').join(ID_DELIM);
 
         if (Array.isArray(route.routes)) {
-            result = result.concat(flattenRoutes(route.routes, path, idPath));
+            result = result.concat(flattenRoutes(route.routes, path, idPath, data));
         }
 
         if (__DEV__ && console && typeof console.warn === 'function') { // eslint-disable-line no-console
@@ -35,7 +35,10 @@ export const flattenRoutes = (routes, parentRoutePath = '', parentIdPath = '') =
         const item = {
             id,
             idPath,
-            data,
+            data: {
+                ...parentData,
+                ...data
+            },
             ...{
                 pattern: {
                     ...pattern,
