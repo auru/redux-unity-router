@@ -31,11 +31,11 @@ const delayedOnClickCallback = e => {
 };
 
 class App extends Component {
+
   render() {
     return (
     <RouterProvider routes={routes} slice="router" immutable>
         <div className="App container">
-
             <div className="app__navigation">
                 <Link to="/main" activeMatch={LINK_MATCH_EXACT}>Main</Link>
                 <Link to="/main/splat">Default</Link>

@@ -21,17 +21,16 @@ class Link extends BaseRouterComponent {
 
         this.handleClick = this.handleClick.bind(this);
 
+        this.href = this.getHref(props);
         this.state = {
             isActive: false
         };
-
-        this.href = this.getHref();
     }
 
     componentWillReceiveProps(newProps) {
 
         if (this.props.to !== newProps.to) {
-            this.href = this.getHref();
+            this.href = this.getHref(newProps);
         }
     }
 
@@ -68,8 +67,8 @@ class Link extends BaseRouterComponent {
         return this.initiateLocationChange(e);
     }
 
-    getHref() {
-        let { to } = this.props;
+    getHref(props) {
+        let { to } = props;
 
         if (typeof to === 'object' && to.id) {
             to = this.router.parseRoute(to);
@@ -152,6 +151,7 @@ class Link extends BaseRouterComponent {
     }
 
     render() {
+
 
         const { children, activeClass, className, target = null } = this.props;
         const classes = this.state.isActive ? `${className} ${activeClass}` : className;
