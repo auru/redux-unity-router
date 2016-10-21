@@ -59,7 +59,7 @@ module.exports = {
         'array-callback-return': CRITICAL,
         'block-scoped-var': WARNING,
         'class-methods-use-this': WARNING,
-        'consistent-return': RECOMMENDED,
+        'consistent-return': OFF,
         'curly': OFF,
         'default-case': [WARNING, {commentPattern: '^no default$'}],
         'dot-location': [WARNING, 'property'],

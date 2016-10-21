@@ -45,6 +45,14 @@ export default [
         pattern: '/prefs/:action'
     },
     {
+        id: 'OnClick',
+        pattern: '/on-click'
+    },
+    {
+        id: 'OnClickPromise',
+        pattern: '/on-click-promise'
+    },
+    {
         id: 'Redirect',
         pattern: '/redirect',
         routes: [

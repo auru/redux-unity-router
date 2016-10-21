@@ -17,6 +17,19 @@ const Main = ({children}) => {
     );
 };
 
+const onClickCallback = e => {
+    e.preventDefault();
+    console.log('OnClick'); // eslint-disable-line no-console
+};
+
+const delayedOnClickCallback = e => {
+    e.preventDefault();
+    console.log('OnClickPromise'); // eslint-disable-line no-console
+    return new Promise(resolve => {
+        setTimeout(resolve, 2000);
+    });
+};
+
 class App extends Component {
   render() {
     return (
@@ -33,6 +46,8 @@ class App extends Component {
                 <Link to={{ id: 'Settings' }} activeMatch={LINK_MATCH_EXACT}>Settings</Link>
                 <Link to={{ id: 'Preferences', params: { action: 'edit' }, query: { edit: true }, hash: 'title' }} activeMatch={LINK_MATCH_EXACT}>Preferences</Link>
                 <Link to="/redirect" activeMatch={LINK_MATCH_PARTIAL}>Redirect</Link>
+                <Link to="/on-click" activeMatch={LINK_MATCH_EXACT} onClick={onClickCallback}>onClick</Link>
+                <Link to="/on-click-promise" activeMatch={LINK_MATCH_EXACT} onClick={delayedOnClickCallback}>onClick Promise</Link>
                 <Link to="https://ya.ru" target="_blank">External</Link>
             </div>
 
@@ -54,6 +69,12 @@ class App extends Component {
                 </Fragment>
                 <Fragment id="Preferences">
                     <h2>Preferences</h2>
+                </Fragment>
+                <Fragment id="OnClick">
+                    <h2>OnClick</h2>
+                </Fragment>
+                <Fragment id="OnClickPromise">
+                    <h2>OnClick Promise</h2>
                 </Fragment>
                 <Fragment id="Redirect" redirect={{ id: 'Redirected' }}>
                     <Fragment id="Redirected">

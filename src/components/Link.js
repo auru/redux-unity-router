@@ -40,15 +40,32 @@ class Link extends BaseRouterComponent {
         return this.state.isActive !== state.isActive || this.props.to !== props.to;
     }
 
+    initiateLocationChange(e) {
+        const { target } = this.props;
+
+        if (!target && !this.href.protocol) {
+            e.preventDefault();
+            this.locationChange(this.href);
+        }
+    }
+
     handleClick(e) {
 
         const { onClick } = this.props;
 
-        if (typeof onClick === 'function') onClick(e);
+        if (typeof onClick === 'function') {
 
-        e.preventDefault();
+            const onClickResult = onClick(e);
 
-        return this.locationChange(this.href);
+            if (typeof onClickResult === 'object' && typeof onClickResult.then === 'function') {
+                e.persist();
+                return onClickResult.then(() => {
+                    this.initiateLocationChange(e);
+                });
+            }
+        }
+
+        return this.initiateLocationChange(e);
     }
 
     getHref() {
@@ -145,9 +162,7 @@ class Link extends BaseRouterComponent {
             className: classes
         };
 
-        if (!target && !this.href.protocol) {
-            props.onClick = this.handleClick;
-        }
+        props.onClick = this.handleClick;
 
         return React.createElement('a', props, children);
     }
@@ -174,7 +189,10 @@ if (__DEV__) {
         ]),
         className: PropTypes.string,
         activeClass: PropTypes.string,
-        onClick: PropTypes.func,
+        onClick: PropTypes.oneOfType([
+            PropTypes.instanceOf(Function),
+            PropTypes.instanceOf(Promise)
+        ]),
         target: PropTypes.string,
         method: PropTypes.string,
         children: PropTypes.any,

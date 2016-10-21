@@ -386,6 +386,11 @@ Dictates whether and how `activeClass` should be added to the link.
 * **`'partial'`** - link will receive its `activeClass` when current route's `pathname` begins with the `pathname` supplied to link.
 * **`'{RegExp}'`** - if you supply a regular expression, current route's entire `path` will be tested against it.
 
+#### `onClick` {Function} *optional*
+**Default:** `undefined`
+
+Optional `onClick` callback, that will be fired before `<Link>` dispatches its navigation action. If this callback returns a `{Promise}`, `<Link>`'s navigation action will be fired, when the returned `{Promise}` resolves. 
+
 ### Example
 ```html
 // Navigates to /application 

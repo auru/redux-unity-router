@@ -5,7 +5,7 @@
 
 .app__navigation
 {
-    flex: 1;
+    flex: 2;
 }
 
 .app__navigation a
@@ -16,7 +16,7 @@
 
 .app__content
 {
-    flex: 9;
+    flex: 8;
     margin: 10px 0;
     padding: 0 30px;
 }
