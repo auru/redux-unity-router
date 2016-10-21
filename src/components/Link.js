@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import BaseRouterComponent from './Base';
 
+import shallowCompare from 'react-addons-shallow-compare';
+
 import { parse, format } from 'url';
 import qs from 'query-string';
 import * as actions from '../actions';
@@ -36,7 +38,7 @@ class Link extends BaseRouterComponent {
 
     shouldComponentUpdate(props, state) {
 
-        return this.state.isActive !== state.isActive || this.props.to !== props.to;
+        return shallowCompare(this, props, state);
     }
 
     initiateLocationChange(e) {
