@@ -6,8 +6,8 @@
   "scripts": {
     "build-package": "npm run test && npm run build-all",
     "build-all": "npm run clean && npm run build-dist && npm run build-umd && npm run build-umd-min",
-    "build-dist": "./node_modules/.bin/babel src --out-dir dist -s",
-    "build-dist-watch": "./node_modules/.bin/babel src --out-dir dist -s -w",
+    "build-dist": "npm run clean && ./node_modules/.bin/babel src --out-dir dist",
+    "build-dist-watch": "npm run clean && ./node_modules/.bin/babel src --out-dir dist -s -w",
     "build-examples": "npm run build-dist && (cd examples && npm i && npm start)",
     "build-umd": "./node_modules/.bin/webpack --bail --config config/webpack/umd.js",
     "build-umd-min": "./node_modules/.bin/webpack --bail --config config/webpack/umd.min.js",
