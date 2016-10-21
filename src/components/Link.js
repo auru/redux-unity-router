@@ -152,7 +152,6 @@ class Link extends BaseRouterComponent {
 
     render() {
 
-
         const { children, activeClass, className, target = null } = this.props;
         const classes = this.state.isActive ? `${className} ${activeClass}` : className;
 
