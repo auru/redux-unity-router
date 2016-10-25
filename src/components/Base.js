@@ -12,7 +12,7 @@ class BaseRouterComponent extends Component {
 
         this.handleStoreChange = this.handleStoreChange.bind(this);
 
-        this.unsubscribe = store.subscribe(this.handleStoreChange);
+        this.unsubscribe = store && store.subscribe(this.handleStoreChange);
     }
 
     componentWillMount() {
