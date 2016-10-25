@@ -1,5 +1,10 @@
 # Redux Unity Router
 
+[![Travis-CI](https://api.travis-ci.org/TimeRaider/redux-unity-router.svg?branch=master)](https://travis-ci.org/TimeRaider/redux-unity-router)
+[![npm version](https://badge.fury.io/js/redux-unity-router.svg)](https://badge.fury.io/js/redux-unity-router)
+[![Deps](https://david-dm.org/timeraider/redux-unity-router/status.svg)](https://david-dm.org/timeraider/redux-unity-router)
+[![Deps-Dev](https://david-dm.org/timeraider/redux-unity-router/dev-status.svg)](https://david-dm.org/timeraider/redux-unity-router)
+
 > Simple routing for your redux application.
 
 The main purpose of this router is to mirror your browser history to the redux store and help you easily declare routes.
