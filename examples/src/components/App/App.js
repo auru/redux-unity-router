@@ -38,13 +38,13 @@ class App extends Component {
         <div className="App container">
             <div className="app__navigation">
                 <Link to="/main" activeMatch={LINK_MATCH_EXACT}>Main</Link>
-                <Link to="/main/splat">Default</Link>
+                <Link to="/main/splat" activeMatch={LINK_MATCH_EXACT}>Default</Link>
                 <Link to="/main/another_splat" activeMatch={/^\/main\/another/}>Another default</Link>
-                <Link to={{ pathname: '/main/user', query: { userId: 1, edit: false }, hash: 'title' }}>User</Link>
+                <Link to={{ pathname: '/main/user', query: { userId: 1, edit: false }, hash: 'title' }} activeMatch={LINK_MATCH_EXACT}>User</Link>
                 <Link to="/main/user?edit=true&userId=2#title" activeMatch={LINK_MATCH_EXACT}>User 2</Link>
-                <Link to="/scroll-to-hash#h2">Scroll to hash</Link>
+                <Link to="/scroll-to-hash#h2" activeMatch={LINK_MATCH_EXACT}>Scroll to hash</Link>
                 <Link to={{ id: 'Settings' }} activeMatch={LINK_MATCH_EXACT}>Settings</Link>
-                <Link to={{ id: 'Preferences', params: { action: 'edit' }, query: { edit: true }, hash: 'title' }} activeMatch={LINK_MATCH_EXACT}>Preferences</Link>
+                <Link to={{ id: 'Preferences', params: { action: 'edit' }, query: { edit: true, sections: ['main','side'] }, hash: 'title' }} activeMatch={LINK_MATCH_EXACT}>Preferences</Link>
                 <Link to="/redirect" activeMatch={LINK_MATCH_PARTIAL}>Redirect</Link>
                 <Link to="/on-click" activeMatch={LINK_MATCH_EXACT} onClick={onClickCallback}>onClick</Link>
                 <Link to="/on-click-promise" activeMatch={LINK_MATCH_EXACT} onClick={delayedOnClickCallback}>onClick Promise</Link>

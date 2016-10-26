@@ -15,6 +15,19 @@ import {
     LINK_ACTIVE_CLASSNAME
 } from '../constants';
 
+
+const compareQueryItems = (linkQueryItem, routeQueryItem) => {
+
+    linkQueryItem = [].concat(linkQueryItem);
+    routeQueryItem = [].concat(routeQueryItem);
+
+    return linkQueryItem.reduce((result, linkQuerySubItem) => {
+        result = result && routeQueryItem.includes(linkQuerySubItem.toString());
+        return result;
+    }, true);
+
+};
+
 class Link extends BaseRouterComponent {
 
     constructor(props, context) {
@@ -117,7 +130,7 @@ class Link extends BaseRouterComponent {
             if (query && Object.keys(query).length) {
                 const routeQuery = immutable ? routerStore.get('query').toJS() : routerStore.query;
                 isActive = isActive && Object.keys(query).reduce(
-                        (result, item) => result && query[item] === routeQuery[item], true);
+                        (result, item) => result && compareQueryItems(query[item], routeQuery[item]), true);
             }
         }
 
