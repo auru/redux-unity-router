@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:TimeRaider/redux-unity-router.git"
+    "url": "git@github.com:auru/redux-unity-router.git"
   },
   "engines": {
     "node": ">=4"
