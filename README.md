@@ -1,10 +1,10 @@
 # Redux Unity Router
 
-[![Travis-CI](https://api.travis-ci.org/TimeRaider/redux-unity-router.svg?branch=master)](https://travis-ci.org/TimeRaider/redux-unity-router)
+[![Travis-CI](https://api.travis-ci.org/auru/redux-unity-router.svg?branch=master)](https://travis-ci.org/auru/redux-unity-router)
 [![npm version](https://badge.fury.io/js/redux-unity-router.svg)](https://badge.fury.io/js/redux-unity-router)
-[![Scrutinizer](https://scrutinizer-ci.com/g/TimeRaider/redux-unity-router/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/TimeRaider/redux-unity-router/)
-[![Deps](https://david-dm.org/timeraider/redux-unity-router/status.svg)](https://david-dm.org/timeraider/redux-unity-router)
-[![Deps-Dev](https://david-dm.org/timeraider/redux-unity-router/dev-status.svg)](https://david-dm.org/timeraider/redux-unity-router)
+[![Scrutinizer](https://scrutinizer-ci.com/g/auru/redux-unity-router/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/auru/redux-unity-router/)
+[![Deps](https://david-dm.org/auru/redux-unity-router/status.svg)](https://david-dm.org/auru/redux-unity-router)
+[![Deps-Dev](https://david-dm.org/auru/redux-unity-router/dev-status.svg)](https://david-dm.org/auru/redux-unity-router)
 
 > Simple routing for your redux application.
 
