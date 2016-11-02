@@ -1,3 +1,12 @@
+<a name="1.2.7"></a>
+## 1.2.7 (2016-11-02)
+
+* chore(deps): removed unused dependencies ([77ad745](https://github.com/auru/redux-unity-router/commit/77ad745))
+* chore(package): fixed package description and keywords ([b8314a2](https://github.com/auru/redux-unity-router/commit/b8314a2))
+* docs(badges): Added Dependency CI ([b11bb0b](https://github.com/auru/redux-unity-router/commit/b11bb0b))
+
+
+
 <a name="1.2.6"></a>
 ## 1.2.6 (2016-11-02)
 
