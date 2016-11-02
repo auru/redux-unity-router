@@ -5,6 +5,7 @@
 [![Scrutinizer](https://scrutinizer-ci.com/g/auru/redux-unity-router/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/auru/redux-unity-router/)
 [![Deps](https://david-dm.org/auru/redux-unity-router/status.svg)](https://david-dm.org/auru/redux-unity-router)
 [![Deps-Dev](https://david-dm.org/auru/redux-unity-router/dev-status.svg)](https://david-dm.org/auru/redux-unity-router)
+[![Dependency Status](https://dependencyci.com/github/auru/redux-unity-router/badge)](https://dependencyci.com/github/auru/redux-unity-router)
 
 > Simple routing for your redux application.
 
