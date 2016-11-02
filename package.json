@@ -65,8 +65,7 @@
     "jsdom": "^9.6.0",
     "react": "^15.3.2",
     "rimraf": "^2.5.4",
-    "validate-commit-msg": "^2.8.2",
-    "webpack": "^1.13.2"
+    "validate-commit-msg": "^2.8.2"
   },
   "ava": {
     "files": [
