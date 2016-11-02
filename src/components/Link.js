@@ -70,7 +70,7 @@ class Link extends BaseRouterComponent {
     initiateLocationChange(e) {
         const { target } = this.props;
 
-        if (!target && !this.href.protocol) {
+        if (!target && !this.href.protocol && e.which !== 2 && !e.metaKey && !e.ctrlKey) {
             e.preventDefault();
             this.locationChange(this.href);
         }
