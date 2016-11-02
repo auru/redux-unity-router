@@ -16,7 +16,7 @@
     "precommit": "npm test",
     "commitmsg": "./node_modules/.bin/validate-commit-msg",
     "test": "npm run lint-prod && ./node_modules/.bin/ava --verbose",
-    "test-watch": "npm run lint && ./node_modules/.bin/ava --verbose --watch"
+    "test:watch": "npm run lint && ./node_modules/.bin/ava --verbose --watch"
   },
   "repository": {
     "type": "git",
