@@ -1,6 +1,7 @@
 # Redux Unity Router
 
 [![Travis-CI](https://api.travis-ci.org/auru/redux-unity-router.svg?branch=master)](https://travis-ci.org/auru/redux-unity-router)
+[![Coverage Status](https://coveralls.io/repos/github/auru/redux-unity-router/badge.svg?branch=master)](https://coveralls.io/github/auru/redux-unity-router?branch=master)
 [![npm version](https://badge.fury.io/js/redux-unity-router.svg)](https://badge.fury.io/js/redux-unity-router)
 [![Scrutinizer](https://scrutinizer-ci.com/g/auru/redux-unity-router/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/auru/redux-unity-router/)
 [![Deps](https://david-dm.org/auru/redux-unity-router/status.svg)](https://david-dm.org/auru/redux-unity-router)
