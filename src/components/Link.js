@@ -28,6 +28,19 @@ const compareQueryItems = (linkQueryItem, routeQueryItem) => {
 
 };
 
+function filterProps(props) {
+
+    const propsCopy = Object.assign({}, props);
+
+    const managedProps = [ 'to', 'activeClass', 'method', 'activeMatch' ];
+
+    for (let prop of managedProps) {
+        delete propsCopy[prop];
+    }
+
+    return propsCopy;
+}
+
 class Link extends BaseRouterComponent {
 
     constructor(props, context) {
@@ -179,7 +192,7 @@ class Link extends BaseRouterComponent {
 
         props.onClick = this.handleClick;
 
-        return React.createElement('a', props, children);
+        return React.createElement('a', filterProps(props), children);
     }
 }
 
