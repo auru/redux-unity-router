@@ -17,8 +17,7 @@ const Main = ({children}) => {
     );
 };
 
-const onClickCallback = e => {
-    e.preventDefault();
+const onClickCallback = () => {
     console.log('OnClick'); // eslint-disable-line no-console
 };
 
