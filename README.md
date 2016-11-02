@@ -25,6 +25,7 @@ The main purpose of this router is to mirror your browser history to the redux s
     * [`<Fragment>`](#fragment)
     * [`<Link>`](#link)
   * [Examples](#examples)
+  * [Contributing](#contributing)
   * [License](#license)
 
 
@@ -454,5 +455,10 @@ We provide a basic example of working React app that you can dig into. Just clon
 ```bash
 npm run build-examples
 ```
+
+## Contributing
+
+* Provide [conventional commit messages](https://github.com/conventional-changelog/conventional-changelog-angular/blob/master/convention.md) by using `npm run commit` instead of `git commit`.
+
 ## License
 MIT © AuRu
