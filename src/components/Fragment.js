@@ -17,6 +17,18 @@ class Fragment extends BaseRouterComponent {
         };
     }
 
+    componentWillReceiveProps(newProps) {
+
+        const { redirect } = this.props;
+        const newRedirect = newProps.redirect;
+
+        if ((!redirect && newRedirect) ||
+            (newRedirect && redirect && newRedirect.id !== redirect.id) ||
+            (typeof newRedirect === 'string' && redirect !== newRedirect)) {
+            this.handleStoreChange(newProps);
+        }
+    }
+
     getChildContext() {
 
         const { router } = this.context;
@@ -24,13 +36,13 @@ class Fragment extends BaseRouterComponent {
         return { router: { ...router, current: this.current } };
     }
 
-    handleStoreChange() {
+    handleStoreChange(newProps) {
 
         if (!this.isSubscribed) return;
 
         const routerStore = this.getStatefromStore();
         const { immutable, parseRoute } = this.router;
-        const { redirect, push } = this.props;
+        const { redirect, push } = newProps || this.props;
         const current = this.current;
 
         if (routerStore) {

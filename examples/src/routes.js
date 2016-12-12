@@ -61,5 +61,15 @@ export default [
                 pattern: '/redirected'
             }
         ]
+    },
+    {
+        id: 'DelayedRedirect',
+        pattern: '/delredirect',
+        routes: [
+            {
+                id: 'DelayedRedirected',
+                pattern: '/redirected'
+            }
+        ]
     }
 ];
