@@ -31,6 +31,24 @@ const delayedOnClickCallback = e => {
 
 class App extends Component {
 
+  constructor(props) {
+      super(props);
+
+      this.handleDelayedRedirect = this.handleDelayedRedirect.bind(this);
+
+      this.state = {
+          redirect: null
+      };
+  }
+
+  handleDelayedRedirect() {
+      setTimeout(() => {
+          this.setState({
+              redirect: { id: 'DelayedRedirected' }
+          });
+      }, 2000);
+  }
+
   render() {
     return (
     <RouterProvider routes={routes} slice="router" immutable>
@@ -45,6 +63,7 @@ class App extends Component {
                 <Link to={{ id: 'Settings' }} activeMatch={LINK_MATCH_EXACT}>Settings</Link>
                 <Link to={{ id: 'Preferences', params: { action: 'edit' }, query: { edit: true, sections: ['main','side'] }, hash: 'title' }} activeMatch={LINK_MATCH_EXACT}>Preferences</Link>
                 <Link to="/redirect" activeMatch={LINK_MATCH_PARTIAL}>Redirect</Link>
+                <Link to="/delredirect" activeMatch={LINK_MATCH_PARTIAL} onClick={this.handleDelayedRedirect}>Delayed redirect</Link>
                 <Link to="/on-click" activeMatch={LINK_MATCH_EXACT} onClick={onClickCallback}>onClick</Link>
                 <Link to="/on-click-promise" activeMatch={LINK_MATCH_EXACT} onClick={delayedOnClickCallback}>onClick Promise</Link>
                 <Link to="https://ya.ru" target="_blank">External</Link>
@@ -78,6 +97,12 @@ class App extends Component {
                 <Fragment id="Redirect" redirect={{ id: 'Redirected' }}>
                     <Fragment id="Redirected">
                         <h2>Redirected</h2>
+                        You have been redirected here
+                    </Fragment>
+                </Fragment>
+                <Fragment id="DelayedRedirect" redirect={this.state.redirect}>
+                    <Fragment id="DelayedRedirected">
+                        <h2>Delayed Redirected</h2>
                         You have been redirected here
                     </Fragment>
                 </Fragment>
