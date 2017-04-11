@@ -19,7 +19,7 @@ const createMatchRouteToPath = registry => ({ id, params = {}, query = {}, hash 
     let pathname;
 
     try {
-        pathname = matcher(params);
+        pathname = matcher(params, { pretty: true });
     } catch (e) {
         throw new RouterError(e.toString());
     }
