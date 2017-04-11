@@ -1,7 +1,7 @@
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import { DEFAULT_SLICE } from '../constants';
 
-class BaseRouterComponent extends Component {
+class BaseRouterComponent extends PureComponent {
 
     constructor(props, context) {
         super(props, context);
