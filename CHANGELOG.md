@@ -1,3 +1,14 @@
+<a name="1.3.1"></a>
+## 1.3.1 (2017-04-12)
+
+* build(yarn): add yarn.lock file ([827ff8f](https://github.com/auru/redux-unity-router/commit/827ff8f))
+* fix(routeToLocation): disable extended uri escaping ([62c9fc3](https://github.com/auru/redux-unity-router/commit/62c9fc3))
+* chore(package): update ava to version 0.18.1 ([4940f76](https://github.com/auru/redux-unity-router/commit/4940f76))
+* chore(package): update ava to version 0.19.0 ([182863e](https://github.com/auru/redux-unity-router/commit/182863e))
+* chore(package): update eslint-plugin-react to version 6.10.0 ([86f3650](https://github.com/auru/redux-unity-router/commit/86f3650))
+
+
+
 <a name="1.3.0"></a>
 # 1.3.0 (2017-01-26)
 
