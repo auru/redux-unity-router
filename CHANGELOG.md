@@ -1,3 +1,10 @@
+<a name="1.3.2"></a>
+## 1.3.2 (2017-07-03)
+
+* fix(Link): fix default pathname (null) ([9a5491b](https://github.com/auru/redux-unity-router/commit/9a5491b))
+
+
+
 <a name="1.3.1"></a>
 ## 1.3.1 (2017-04-12)
 
