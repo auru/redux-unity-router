@@ -162,20 +162,13 @@ class Link extends BaseRouterComponent {
         }
     };
 
-    locationChange(to) {
-
+    locationChange({ pathname, query, search, hash }) {
         const { method } = this.props;
 
-        let search = to.query || to.search;
+        search = query || search;
         search = typeof search === 'object' ? qs.stringify(search) : search;
 
-        const payload = {
-            pathname: to.pathname,
-            search: search,
-            hash: to.hash
-        };
-
-        this.store.dispatch(actions[method](payload));
+        this.store.dispatch(actions[method]({ pathname: pathname || '', search, hash }));
     }
 
     render() {
