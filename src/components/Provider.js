@@ -1,4 +1,5 @@
-import { Children, Component, PropTypes } from 'react';
+import { Children, Component } from 'react';
+import PropTypes from 'prop-types';
 import createRouteToLocationParser from '../parsers/routeToLocation';
 import { DEFAULT_SLICE, __DEV__ } from '../constants';
 

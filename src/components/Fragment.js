@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import BaseRouterComponent from './Base';
 import { ID_DELIM, __DEV__} from '../constants';
 import { push as actionPush } from '../actions';
