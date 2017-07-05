@@ -1,3 +1,12 @@
+<a name="1.3.3"></a>
+## 1.3.3 (2017-07-05)
+
+* perf(Components): replace React.PropTypes on 'prop-types' module ([7c3f315](https://github.com/auru/redux-unity-router/commit/7c3f315))
+* 1.3.2 ([dad50ba](https://github.com/auru/redux-unity-router/commit/dad50ba))
+* fix(Link): fix default pathname (null) ([9a5491b](https://github.com/auru/redux-unity-router/commit/9a5491b))
+
+
+
 <a name="1.3.2"></a>
 ## 1.3.2 (2017-07-03)
 
