@@ -43,6 +43,7 @@
     "history": "^4.3.0",
     "path": "^0.12.7",
     "path-to-regexp": "^1.6.0",
+    "prop-types": "^15.5.10",
     "query-string": "^4.2.3",
     "react-addons-shallow-compare": "^15.3.2",
     "url": "^0.11.0"
