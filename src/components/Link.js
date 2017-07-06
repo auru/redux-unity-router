@@ -137,7 +137,7 @@ class Link extends BaseRouterComponent {
             if (query && Object.keys(query).length) {
                 const routeQuery = immutable ? routerStore.get('query').toJS() : routerStore.query;
                 isActive = isActive && Object.keys(query).reduce(
-                        (result, item) => result && compareQueryItems(query[item], routeQuery[item]), true);
+                    (result, item) => result && compareQueryItems(query[item], routeQuery[item]), true);
             }
         }
 
