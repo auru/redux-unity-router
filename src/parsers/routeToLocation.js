@@ -19,7 +19,9 @@ const createMatchRouteToPath = registry => ({ id, params = {}, query = {}, hash 
     let pathname;
 
     try {
-        pathname = matcher(params, { pretty: true });
+        // path-to-regexp (1.6.0): encodeURI by default, disable it with decodeURI
+        // 'pretty' flag disable all encoding, besides '/', '?', '#'
+        pathname = decodeURIComponent(matcher(params));
     } catch (e) {
         throw new RouterError(e.toString());
     }
