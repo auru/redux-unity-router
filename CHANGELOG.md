@@ -1,3 +1,10 @@
+<a name="1.4.1"></a>
+## 1.4.1 (2017-07-07)
+
+* fix(routeToLocation): disable URI encoding ([9c8b109](https://github.com/auru/redux-unity-router/commit/9c8b109))
+
+
+
 <a name="1.4.0"></a>
 # 1.4.0 (2017-07-07)
 
