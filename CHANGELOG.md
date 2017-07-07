@@ -1,3 +1,14 @@
+<a name="1.4.0"></a>
+# 1.4.0 (2017-07-07)
+
+* feat: update src to React 15.5.0, update deps to green ([dccc5b7](https://github.com/auru/redux-unity-router/commit/dccc5b7))
+* feat(ci): node 4.x, 5.x is not supported ([7ea1f94](https://github.com/auru/redux-unity-router/commit/7ea1f94))
+* chore: remove info from changelog ([c8a4630](https://github.com/auru/redux-unity-router/commit/c8a4630))
+* chore: update deps to green ([ea028a8](https://github.com/auru/redux-unity-router/commit/ea028a8))
+* chore: update yarn.lock file ([6ffddf2](https://github.com/auru/redux-unity-router/commit/6ffddf2))
+
+
+
 <a name="1.3.3"></a>
 ## 1.3.3 (2017-07-05)
 
