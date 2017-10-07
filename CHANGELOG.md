@@ -1,3 +1,10 @@
+<a name="1.4.2"></a>
+## 1.4.2 (2017-10-07)
+
+* chore: update deps to green ([42d8fab](https://github.com/auru/redux-unity-router/commit/42d8fab))
+
+
+
 <a name="1.4.1"></a>
 ## 1.4.1 (2017-07-07)
 
