@@ -45,3 +45,4 @@ dist
 umd
 
 .idea
+package-lock.json

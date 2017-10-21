@@ -15,7 +15,7 @@ const toEnhance = [
     router.enhancer,
     applyMiddleware(...middleware),
     window && window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-];
+].filter(Boolean);
 const enhancer = compose(...toEnhance);
 const reducers = combineReducers({
     [slice]: router.reducer
