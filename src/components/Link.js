@@ -14,7 +14,6 @@ import {
     LINK_ACTIVE_CLASSNAME
 } from '../constants';
 
-
 const compareQueryItems = (linkQueryItem, routeQueryItem) => {
 
     linkQueryItem = [].concat(linkQueryItem);
