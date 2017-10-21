@@ -8,7 +8,6 @@ const createParamsFromKeys = (match, keys) => keys.reduce((result, key, index) =
 }, {});
 
 const createMatchPathToRoute = matchers => path => {
-
     path = path.split('?');
     const pathname = path.shift();
     const pathQuery = qs.parse(path.shift());

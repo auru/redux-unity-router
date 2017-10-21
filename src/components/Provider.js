@@ -5,7 +5,6 @@ import { DEFAULT_SLICE, __DEV__ } from '../constants';
 
 class Provider extends Component {
     getChildContext() {
-
         const { immutable, slice, routes, current } = this.props;
         const router = {
             immutable,

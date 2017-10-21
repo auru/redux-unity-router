@@ -16,7 +16,6 @@ import {
 
 
 const compareQueryItems = (linkQueryItem, routeQueryItem) => {
-
     linkQueryItem = [].concat(linkQueryItem);
     routeQueryItem = [].concat(routeQueryItem);
 
@@ -28,7 +27,6 @@ const compareQueryItems = (linkQueryItem, routeQueryItem) => {
 };
 
 function filterProps(props) {
-
     const propsCopy = Object.assign({}, props);
 
     const managedProps = [ 'to', 'activeClass', 'method', 'activeMatch' ];
@@ -43,7 +41,6 @@ function filterProps(props) {
 class Link extends BaseRouterComponent {
 
     constructor(props, context) {
-
         super(props, context);
 
         this.handleClick = this.handleClick.bind(this);
@@ -55,7 +52,6 @@ class Link extends BaseRouterComponent {
     }
 
     componentWillReceiveProps(newProps) {
-
         if (this.props.to !== newProps.to) {
             this.href = this.getHref(newProps);
         }
@@ -71,7 +67,6 @@ class Link extends BaseRouterComponent {
     }
 
     handleClick(e) {
-
         const { onClick } = this.props;
 
         if (typeof onClick === 'function') {
@@ -107,7 +102,6 @@ class Link extends BaseRouterComponent {
     }
 
     handleStoreChange() {
-
         if (!this.isSubscribed) return;
 
         const { activeClass, activeMatch } = this.props;
@@ -166,7 +160,6 @@ class Link extends BaseRouterComponent {
     }
 
     render() {
-
         const { children, activeClass, className, target = null } = this.props;
         const classes = this.state.isActive ? `${className} ${activeClass}` : className;
 

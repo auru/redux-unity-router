@@ -2,7 +2,6 @@ import { ACTION_PREFIX, ACTION_TYPES, HISTORY_METHODS} from './constants';
 import { parsePath } from 'history';
 
 export default ({ history, routeParser }) => ({ dispatch, getState }) => next => action => {
-
     if (action.type.indexOf(ACTION_PREFIX) === 0 && action.type !== ACTION_TYPES.LOCATION_CHANGED) {
 
         if (action.type === ACTION_TYPES.GO_TO_ROUTE) {

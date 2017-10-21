@@ -36,7 +36,6 @@ const createMatchRouteToPath = registry => ({ id, params = {}, query = {}, hash 
 };
 
 const createRouteToLocationParser = routes => {
-
     const registry = flattenRoutes(routes).reduce((result, item) => {
         if (result[item.id]) {
             return result;
