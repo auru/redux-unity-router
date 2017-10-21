@@ -1,0 +1,14 @@
+.current-route
+{
+    margin: 0 0 12px;
+}
+
+.current-route__info
+{
+    font-size: 18px;
+}
+
+.current-route__item
+{
+    margin: 6px 0;
+}
