@@ -455,7 +455,7 @@ You can pass react component to be used as a direct child of the `<Fragment>`.
 ## Examples
 We provide a basic example of working React app that you can dig into. Just clone this repo and run:
 ```bash
-npm run build-examples
+npm run build:examples
 ```
 
 ## Contributing
