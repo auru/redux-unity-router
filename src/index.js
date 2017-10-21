@@ -1,6 +1,5 @@
 import { createBrowserHistory, createHashHistory, createMemoryHistory } from 'history';
 
-
 export const History = {
     createBrowserHistory,
     createHashHistory,
