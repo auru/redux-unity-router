@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import BaseRouterComponent from './Base';
 import { ID_DELIM, __DEV__} from '../constants';
-import { push as actionPush } from '../actions';
+import { replace } from '../actions';
 
 class Fragment extends BaseRouterComponent {
 
@@ -41,24 +41,28 @@ class Fragment extends BaseRouterComponent {
 
         if (!this.isSubscribed) return;
 
-        const routerStore = this.getStatefromStore();
         const { immutable, parseRoute } = this.router;
-        const { redirect, push } = newProps || this.props;
+        const { redirect } = newProps || this.props;
+
         const current = this.current;
+        const storeState = this.getStatefromStore();
+        const routerStore = immutable ? storeState.toJS() : storeState;
 
         if (routerStore) {
-            const idPath = immutable ? routerStore.getIn([ 'route', 'idPath' ]) : routerStore.route.idPath;
+            const idPath = routerStore.route.idPath;
+            const params = routerStore.route.params;
+            const query = routerStore.query;
+            const hash = routerStore.hash;
             const routePath = idPath + ID_DELIM;
             const fragmentPath = current + ID_DELIM;
             const match = (routePath).indexOf(fragmentPath);
             const matchExact = routePath === fragmentPath;
 
             if (matchExact && redirect) {
-                return this.store.dispatch(push(
-                    typeof redirect === 'object' && redirect.id
-                        ? parseRoute(redirect)
-                        : redirect
-                ));
+                const redirectRoute = typeof redirect === 'object' && redirect.id ?
+                    parseRoute({ ...{ params, query, hash }, ...redirect }) : redirect;
+
+                return this.store.dispatch(replace(redirectRoute));
             }
 
             if (match === 0 && !this.state.visible) {
@@ -101,10 +105,6 @@ Fragment.childContextTypes = {
     store: PropTypes.object
 };
 
-Fragment.defaultProps = {
-    push: actionPush
-};
-
 if (__DEV__) {
     Fragment.propTypes = {
         id: PropTypes.oneOfType([
@@ -120,8 +120,7 @@ if (__DEV__) {
         redirect: PropTypes.oneOfType([
             PropTypes.object,
             PropTypes.string
-        ]),
-        push: PropTypes.func.isRequired
+        ])
     };
 }
 
