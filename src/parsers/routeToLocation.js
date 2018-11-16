@@ -19,9 +19,14 @@ const createMatchRouteToPath = registry => ({ id, params = {}, query = {}, hash 
     let pathname;
 
     try {
-        // path-to-regexp (1.6.0): encodeURI by default, disable it with decodeURI
+        // remove front trailing backslash (disable '//' situation)
+        Object.keys(params).forEach(name => {
+            params[name] = (params[name] || '').replace(/^\//, '');
+        });
+
+        // path-to-regexp (2.4.0): encodeURI by default, disable it with encode option
         // 'pretty' flag disable all encoding, besides '/', '?', '#'
-        pathname = decodeURIComponent(matcher(params));
+        pathname = matcher(params, { encode: value => value });
     } catch (e) {
         throw new RouterError(e.toString());
     }
