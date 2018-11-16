@@ -1,6 +1,6 @@
 {
   "name": "redux-unity-router",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Redux router that syncs history with store",
   "main": "dist/index.js",
   "scripts": {
@@ -42,7 +42,7 @@
   "dependencies": {
     "history": "^4.6.3",
     "path": "^0.12.7",
-    "path-to-regexp": "^1.6.0",
+    "path-to-regexp": "^2.4.0",
     "prop-types": "^15.5.10",
     "query-string": "^4.3.4",
     "url": "^0.11.0"
