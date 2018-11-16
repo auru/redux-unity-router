@@ -21,7 +21,7 @@ const createMatchRouteToPath = registry => ({ id, params = {}, query = {}, hash 
     try {
         // remove front trailing backslash (disable '//' situation)
         Object.keys(params).forEach(name => {
-            params[name] = (params[name] || '').replace(/^\//, '');
+            params[name] = String(params[name] || '').replace(/^\//, '');
         });
 
         // path-to-regexp (2.4.0): encodeURI by default, disable it with encode option
