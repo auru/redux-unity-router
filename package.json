@@ -43,7 +43,7 @@
     "history": "^4.6.3",
     "path": "^0.12.7",
     "path-to-regexp": "^2.4.0",
-    "prop-types": "^15.5.10",
+    "prop-types": "^15.7.0",
     "query-string": "^4.3.4",
     "url": "^0.11.0"
   },
