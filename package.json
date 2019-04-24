@@ -59,7 +59,7 @@
     "babel-preset-stage-0": "^6.16.0",
     "babel-register": "^6.16.3",
     "commitizen": "^2.8.6",
-    "conventional-changelog-cli": "^1.2.0",
+    "conventional-changelog-cli": "^2.0.17",
     "coveralls": "^2.13.1",
     "cz-conventional-changelog": "^2.0.0",
     "eslint": "^4.1.1",
