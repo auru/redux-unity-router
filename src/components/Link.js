@@ -63,29 +63,39 @@ class Link extends BaseRouterComponent {
     initiateLocationChange(e) {
         const { target } = this.props;
 
-        if (!target && !this.href.protocol && (e.nativeEvent && e.nativeEvent.which) !== 2 && !e.metaKey && !e.ctrlKey) {
+        if (!target &&
+            !e.altKey &&
+            !e.metaKey &&
+            !e.ctrlKey &&
+            !this.href.protocol &&
+            (e.nativeEvent && e.nativeEvent.which) !== 2
+        ) {
             e.preventDefault();
             this.locationChange(this.href);
         }
     }
 
     handleClick(e) {
-
         const { onClick } = this.props;
 
         if (typeof onClick === 'function') {
-
             const onClickResult = onClick(e);
 
-            if (typeof onClickResult === 'object' && typeof onClickResult.then === 'function') {
+            if (typeof onClickResult === 'object' &&
+                typeof onClickResult.then === 'function') {
                 e.persist();
+
                 return onClickResult.then(() => {
-                    this.initiateLocationChange(e);
+                    if (!e.defaultPrevented) {
+                        this.initiateLocationChange(e);
+                    }
                 });
             }
         }
 
-        return this.initiateLocationChange(e);
+        if (!e.defaultPrevented) {
+            return this.initiateLocationChange(e);
+        }
     }
 
     getHref(props) {
