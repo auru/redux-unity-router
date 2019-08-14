@@ -71,7 +71,7 @@
     "nyc": "^11.0.3",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
-    "rimraf": "^2.5.4",
+    "rimraf": "^3.0.0",
     "validate-commit-msg": "^2.12.2"
   },
   "ava": {
