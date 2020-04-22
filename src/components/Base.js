@@ -20,7 +20,6 @@ class BaseRouterComponent extends PureComponent {
     }
 
     componentWillUnmount() {
-
         if (this.isSubscribed) {
             this.unsubscribe();
             delete this.unsubscribe;
@@ -28,7 +27,6 @@ class BaseRouterComponent extends PureComponent {
     }
 
     get isSubscribed() {
-
         return typeof this.unsubscribe === 'function';
     }
 

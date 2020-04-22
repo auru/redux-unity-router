@@ -7,7 +7,6 @@ import { replace } from '../actions';
 class Fragment extends BaseRouterComponent {
 
     constructor(props, context) {
-
         super(props, context);
 
         const { id } = this.props;
@@ -19,7 +18,6 @@ class Fragment extends BaseRouterComponent {
     }
 
     componentWillReceiveProps(newProps) {
-
         const { redirect } = this.props;
         const newRedirect = newProps.redirect;
 
@@ -31,14 +29,12 @@ class Fragment extends BaseRouterComponent {
     }
 
     getChildContext() {
-
         const { router } = this.context;
 
         return { router: { ...router, current: this.current } };
     }
 
     handleStoreChange(newProps) {
-
         if (!this.isSubscribed) return;
 
         const { immutable, parseRoute } = this.router;
@@ -81,7 +77,6 @@ class Fragment extends BaseRouterComponent {
     }
 
     render() {
-
         const { visible, matchExact, redirect } = this.state;
         const { children, component: ChildComponent} = this.props;
 

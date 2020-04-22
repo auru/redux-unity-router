@@ -2,7 +2,6 @@ import { join as pathJoin } from 'path';
 import { __DEV__, ID_DELIM } from '../constants';
 
 export const flattenRoutes = (routes, parentRoutePath = '', parentIdPath = '', parentData = {}) => {
-
     let result = [];
 
     for (let route of routes) {

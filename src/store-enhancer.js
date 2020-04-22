@@ -21,7 +21,6 @@ const scrollToHash = hash => {
 };
 
 export default ({ history, slice, locationParser, immutable }) => next => (reducer, initialState, enhancer) => {
-
     // boilerplate
     if (typeof initialState === 'function' && typeof enhancer === 'undefined') {
         enhancer = initialState;
